@@ -1,0 +1,98 @@
+.login-form{
+	border: 1px solid #ccc;
+    padding: 30px;
+    border-radius: 10px; 
+    margin-top:10%;
+    box-shadow: 0px 2px 10px #ccc;
+}
+.login-form a{
+    float: right;
+    text-decoration: none;
+}
+.btn-login{
+    background-color: transparent;
+    border: 1px solid #aaa;
+    width: 30%;
+}
+.fleft{
+    float: left;
+}
+.fright{
+    float: right;
+}
+.user{
+    display: none;
+}
+.menubar{
+    background-color: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.menu{
+    width: 16%;
+    text-align: center;
+}
+.menu a{
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+.heading h3{
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.form-style{
+    border: 1px solid #ccc;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top:2%;
+    box-shadow: 0px 2px 10px #ccc;
+}
+.dropdown-menu{
+    margin: 10px 66px 0;
+}
+.dropdown-menu>li>a{
+    text-align:left;
+}
+.custList{
+    margin-top:5%;
+}
+.btn-add{
+    color: #000;
+    background-color: transparent;
+    border: 1px solid #aaa;
+    width: 20%;
+    font-size: 18px;
+}
+.m2per{
+    margin-top: 2%;
+}
+.btn-plan{
+    background-color: transparent;
+    border: 1px solid #aaa;
+    width: 30%;
+}
+.footer{
+    background-color: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top:11vw;
+}
+.editcustbox{
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.wid20{
+    width:20%;
+}
+.cursorpoint{
+    cursor: pointer;
+}
+.btn-invoice{
+    background-color: buttonface;
+    text-decoration: none;
+    color:#333;
+}

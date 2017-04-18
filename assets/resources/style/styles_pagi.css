@@ -1,0 +1,46 @@
+#wrapper{
+	margin: 0px auto;
+	text-align: left;
+	width:100%;
+}
+
+
+#paging_container8 .no_more{
+    background-color: white;
+    color: gray;
+    cursor: default;
+}
+
+.ellipse{
+	
+	padding:10px;
+}
+
+
+.page_navigation , .alt_page_navigation{
+	padding: 10px;
+	
+}
+
+.page_navigation a, .alt_page_navigation a{
+	padding:10px 17px;
+	margin:2px;
+	color:#a6a6a6;
+	text-decoration:none;
+	
+	
+	font-family: open_sanssemibold;
+	font-size: 14px;
+	border-radius:50px;
+	display:inline-block;
+	
+
+}
+.active_page{
+	background-color:white !important;
+	color:#fff !important;
+}	
+
+.content, .alt_content{
+	color: black;
+}

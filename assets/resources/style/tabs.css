@@ -1,0 +1,13 @@
+
+li.ui-tabs-selected a.ban_icon_1		{background: url(../images/ban-icon-1.png) -110px 0px no-repeat !important; }
+li.ui-tabs-selected a.ban_icon_2		{background: url(../images/ban-icon-2.png) -110px 0px no-repeat !important; }
+li.ui-tabs-selected a.ban_icon_3		{background: url(../images/ban-icon-3.png) -110px 0px no-repeat !important; }
+
+.ui-tabs .ui-tabs-hide 				{ display: none !important; }
+
+
+
+
+a.mover 							{position: absolute;height:40px;width:40px;}
+.next-tab 							{ bottom: -40px; right: -290px;background:url(../images/ic_right.png) no-repeat;}
+.prev-tab 							{ bottom: -40px; left: -290px;background:url(../images/ic_left.png) no-repeat;}
