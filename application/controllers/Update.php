@@ -49,7 +49,7 @@ class Update extends CI_Controller{
     }
 
     public function changepasswordSuperadmin(){
-    	if($this->superadmin->changepassword($_POST['pass'], $_POST['id'])){  
+    	if($this->admin->changepassword($_POST['pass'], $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Password updated successfully"]);
 		}
 		else{

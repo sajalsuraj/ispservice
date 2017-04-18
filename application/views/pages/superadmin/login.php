@@ -2,7 +2,7 @@
 	
 	if($this->session->has_userdata('type') == true){
 		if($this->session->userdata('type') == "superadmin"){
-			redirect('superadmin/home');
+			redirect('admin/home');
 		}
 	}
 
@@ -39,7 +39,7 @@
 	    submitHandler: function(form) { 
 	    	
 	        $.ajax({
-	        	url:'<?php echo base_url(); ?>get/superadminLogin',
+	        	url:'<?php echo base_url(); ?>get/adminLogin',
 	        	type: 'POST',
                 data: $('form').serialize(),
                 dataType:'json',

@@ -12,13 +12,9 @@ class Logout extends CI_Controller{
     		$this->session->sess_destroy();
     		redirect('customer/login');
     	}
-    	else if($this->session->userdata('type') == "superadmin"){
+    	else if($this->session->userdata('type') == "superadmin" || $this->session->userdata('type') == "subadmin"){
     		$this->session->sess_destroy();
-    		redirect('superadmin/login');
-    	}
-    	else if($this->session->userdata('type') == "subadmin"){
-    		$this->session->sess_destroy();
-    		redirect('subadmin/login');
+    		redirect('admin/login');
     	}
 
     }

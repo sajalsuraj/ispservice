@@ -3,12 +3,15 @@
 		if($this->session->userdata('type') == "superadmin"){
 			
 		}
+		else if($this->session->userdata('type') == "subadmin"){
+			redirect('admin/customerlist');
+		}
 		else{
-			redirect('superadmin/login');
+			redirect('admin/login'); 
 		}
 	}
 	else{
-		redirect('superadmin/login');
+		redirect('admin/login');
 	}
 ?>
 <div class="container-fluid">

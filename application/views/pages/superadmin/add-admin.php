@@ -1,18 +1,22 @@
-<?php 	
+<?php
 	if($this->session->has_userdata('type') == true){
 		if($this->session->userdata('type') == "superadmin"){
 			
 		}
+		else if($this->session->userdata('type') == "subadmin"){
+			redirect('admin/customerlist');
+		}
 		else{
-			redirect('superadmin/login');
+			redirect('admin/login'); 
 		}
 	}
 	else{
-		redirect('superadmin/login');
+		redirect('admin/login');
 	}
 ?>
 <div class="container-fluid">
 	<div class="col-md-12 menubar"> 
+		<?php if($this->session->userdata('type') == "superadmin"){ ?>
 		<div class="menu fleft"><a href="home">Home</a></div>
 		<div class="menu fleft btn-group">
 			<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
@@ -20,10 +24,12 @@
 			    <li><a href="orderlist">Order List</a></li>
 			    <li><a href="invoiceorderlist">Invoice</a></li>
 			    <li><a href="customerlist">Customer List</a></li>
-			    <li><a href="dataplan">Data Plan</a></li>
+			    <li><a href="dataplan">Data Plan</a></li> 
 			</ul>
 		</div>
+		<?php } ?>
 		<div class="menu fleft"><a href="changepassword">Password Change</a></div>
+		<?php if($this->session->userdata('type') == "superadmin"){ ?>
 		<div class="menu fleft btn-group">
 			<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
 			<ul class="dropdown-menu">
@@ -31,6 +37,7 @@
 			</ul>
 		</div>
 		<div class="menu fleft"><a href="add-admin">Create Sub-Admin</a></div>
+		<?php } ?>
 		<div class="menu fleft"><a href="<?php echo base_url(); ?>user/logout">Logout</a></div>
 	</div>
 

@@ -7,29 +7,10 @@ class Get extends CI_Controller{
       parent::__construct();
     } 
 
-    public function adminLogin(){ 
+    
+    public function adminLogin(){
     	
 	     $data = $this->admin->login($_POST);
-	    
-	     if($data != NULL){
-	     	$newdata = array(
-			        'name'  =>  $data->first_name." ".$data->last_name,
-			        'user_id'     => $data->user_id,
-			        'type' => $data->type
-			);
-
-			$this->session->set_userdata($newdata);  
-
-			echo json_encode(['status' => true, 'message' => 'Successful Login']);
-	     }
-	     else{
-	     	echo json_encode(['status' => false, 'message' => 'Unsuccessful Login']);
-	     }  	
-    }//end function
-
-    public function superadminLogin(){
-    	
-	     $data = $this->superadmin->login($_POST);
 	    
 	     if($data != NULL){
 	     	$newdata = array(
