@@ -7,7 +7,7 @@ class Delete extends CI_Controller{
       parent::__construct();
     }
 
-    public function deleteDataplan(){
+    public function deleteDataplan(){ 
 
     	if($this->dataplan->deleteDataplan($_POST['id'])){
     		echo json_encode(['status' => true, 'message' => 'Plan details deleted successfully']);
@@ -26,6 +26,17 @@ class Delete extends CI_Controller{
     	else{
     		echo json_encode(['status' => false, 'message' => 'Unable to delete']);
     	}
+
+    } 
+
+    public function deleteBanner(){
+
+        if($this->admin->deleteBanner($_POST['id'])){
+            echo json_encode(['status' => true, 'message' => 'Banner deleted successfully']);
+        }
+        else{
+            echo json_encode(['status' => false, 'message' => 'Unable to delete']);
+        }
 
     } 
 }

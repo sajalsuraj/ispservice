@@ -53,7 +53,16 @@ class Admin extends CI_Model{
            'password' => $pass
         );
         $this->db->where('user_id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('users', $data); 
+        return true;
+    }
+
+    public function changeBannerStatus($status, $id){
+        $data = array(
+           'status' => $status
+        );
+        $this->db->where('id', $id);
+        $this->db->update('banner', $data); 
         return true;
     }
 
@@ -61,6 +70,11 @@ class Admin extends CI_Model{
         $query = $this->db->get('contact');
         $data['result'] = $query->result();
         return $data; 
+    }
+
+    public function deleteBanner($id){
+           $res = $this->db->delete('banner', array('id' => $id)); 
+           return $res;
     }
 }
 

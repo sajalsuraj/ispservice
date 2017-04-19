@@ -3,20 +3,21 @@
     
                 <div class="home_banplc">
                     <div class="ban_slider">
-                                            <!--own repeat-->
-                                            <!--single product in loop-->
-                                            <?php $getAllBanners = $this->admin->getAllBanners(); ?>
-                                            <?php foreach ($getAllBanners['result'] as $banner) { ?>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/<?php echo $banner->banner_img; ?>" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>  
-                                            <?php } ?>
-                                            <!--ends here-->
-                                    </div>
+                        <!--own repeat-->
+                        <!--single product in loop-->
+                        <?php $getAllBanners = $this->admin->getAllBanners(); ?>
+                        <?php foreach ($getAllBanners['result'] as $banner) {  ?>
+                            <?php if($banner->status=="true"){ ?>
+                        <div>
+                            <div class="ban_rota_img">
+                                <a href="#">
+                                    <img src="<?php echo base_url(); ?>assets/resources/images/slider/<?php echo $banner->banner_img; ?>" alt="" />
+                                </a>
+                            </div>
+                        </div>  
+                        <?php }} ?>
+                        <!--ends here-->
+                    </div>
                 </div>
             
 </section>

@@ -19,7 +19,7 @@
 $(document).ready(function() { 
 
 		$('.ban_slider').owlCarousel({
-    loop:true,
+    
     margin:0,
 	dots : false,
 	nav:true,
@@ -34,7 +34,7 @@ $(document).ready(function() {
     }
 })
 $('.btm_five_add').owlCarousel({
-    loop:true,
+    
     margin:20,
 	dots : false,
 	nav:true,

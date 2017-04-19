@@ -26,6 +26,7 @@
 			    <li><a href="invoiceorderlist">Invoice</a></li>
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li> 
+			    <li><a href="banner">HomePage Banner</a></li> 
 			</ul>
 		</div>
 		<?php } ?>
@@ -66,6 +67,7 @@
 						<th>Banner ID</th>
 						<th>Banner Image</th>
 						<th>Status</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -74,6 +76,7 @@
 						<td><?php echo $banner->id; ?></td>
 						<td><a href="<?php echo base_url().'assets/resources/images/slider/'. $banner->banner_img; ?>" target="_blank"><?php echo $banner->banner_img; ?></a></td>
 						<td><?php if($banner->status == "true"){ echo "Enabled";}else{ echo "Disabled"; } ?></td>
+						<td><?php if($banner->status == "true"){ echo "<button id='disable_".$banner->id."' class='btn btn-danger status'>Disable</button>";}else{ echo "<button id='enable_".$banner->id."' class='btn btn-success status'>Enable</button>"; } ?>&nbsp;&nbsp;<button id="banner_<?php echo $banner->id; ?>" class="btn delBanner">Delete</button></td>
 					</tr>
 				<?php } ?>
 				</tbody>
@@ -107,6 +110,60 @@
                     }
                 }
 	        });
+	    }
+	});
+
+	//Function to update the status
+	$('.status').click(function(){
+		var detail = $(this).attr('id'), status = "", id = "";
+		if(detail.split('_')[0] == "enable"){
+			status = "true";
+		}
+		else if(detail.split('_')[0] == "disable"){
+			status = "false";
+		}
+
+		var obj = {id:detail.split('_')[1], status:status};
+		$.ajax({
+	        	url:'<?php echo base_url(); ?>update/changebannerstatus',
+	        	type: 'POST',
+                data: obj,
+		        dataType:'json',
+                success:function(as){
+                	if(as.status == true){
+                		alert(as.message);
+                		location.reload();
+                	}
+                    else if(as.status == false){
+                    	alert(as.message);
+                    }
+                }
+	        });
+	});
+
+	//Delete banner
+	$('.delBanner').click(function(){  
+		var id = $(this).attr('id');
+		if (confirm("Do you really want to delete this Banner ?") == true) {
+
+			var obj = {id:id.split("_")[1]};
+	        $.ajax({
+	        	url:'<?php echo base_url(); ?>delete/deleteBanner',
+	        	type: 'POST',
+                data: obj,
+                dataType:'json',
+                success:function(as){
+                	if(as.status == true){
+                		alert(as.message);
+                		location.reload();
+                	}
+                	else{
+                		alert("Error while updating");
+                	}
+                }
+	        });
+	    } else {
+	        
 	    }
 	});
 </script>

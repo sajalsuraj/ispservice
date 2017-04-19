@@ -24,6 +24,7 @@
 			    <li><a href="invoiceorderlist">Invoice</a></li>
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li>
+			    <li><a href="banner">HomePage Banner</a></li> 
 			</ul>
 		</div>
 		<div class="menu fleft"><a href="changepassword">Password Change</a></div>

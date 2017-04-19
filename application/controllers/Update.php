@@ -5,7 +5,7 @@ class Update extends CI_Controller{
 
     public function __construct(){
       parent::__construct();
-    }
+    } 
 
     public function customer(){
 
@@ -60,6 +60,15 @@ class Update extends CI_Controller{
     public function changepasswordCustomer(){
     	if($this->customer->changepassword($_POST['pass'], $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Password updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
+
+    public function changebannerstatus(){
+    	if($this->admin->changeBannerStatus($_POST['status'], $_POST['id'])){  
+			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
 		}
 		else{
 			echo json_encode(['status' => false, 'message' => "Not Updated"]);
