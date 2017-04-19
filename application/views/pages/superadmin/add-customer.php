@@ -203,6 +203,10 @@
 						<input type="file" name="kyc_form">
 					</div>
 					<div class="form-group">
+						<label>Customer Photo</label>
+						<input type="file" name="profile_pic">
+					</div>
+					<div class="form-group">
 						<label>ID Proof</label>
 						<input type="file" name="id_proof">
 					</div>

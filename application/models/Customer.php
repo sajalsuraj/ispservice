@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $query = $this->db->get('customer');
         return $query->result_array();
       }
-
+ 
       public function login($data){
         $this->db->select('first_name,last_name,customer_id, type');
             $query = $this->db->get_where('customer', array('email' => $data['email'], 'password' => $data['password'], 'type' => 'customer'))->row();

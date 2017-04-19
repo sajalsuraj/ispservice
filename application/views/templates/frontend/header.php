@@ -11,10 +11,12 @@
 
  <script src="<?php echo base_url(); ?>assets/resources/script/owl.carousel-2.js"></script>
  <script src="<?php echo base_url(); ?>assets/resources/script/crawler.js"></script>
+ <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
+ <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/additional-methods.js"></script>
 
 <script>
 
-$(document).ready(function() {
+$(document).ready(function() { 
 
 		$('.ban_slider').owlCarousel({
     loop:true,
@@ -100,7 +102,15 @@ marqueeInit({
 				
 				<a href="contact-us">Contact Us</a>
 				<a href="payment-1" class="login">Online Payment</a>
-				<a href="login" class="login">Login</a>
+				<?php if($this->session->has_userdata('type') == true){
+						if($this->session->userdata('type') == "customer"){ ?>
+				    <a href="<?php echo base_url(); ?>userprofile" class="login">Profile</a>
+					<a href="<?php echo base_url(); ?>user/logout" class="login">Logout</a>
+				<?php } else{ ?>
+					<a href="login" class="login">Login</a>
+				<?php } } else{ ?>
+					<a href="login" class="login">Login</a>
+				<?php } ?>
 			</div>
 					
 					</div>

@@ -57,6 +57,10 @@
 					<input type="text" name="last_name" class="form-control">
 				</div>
 				<div class="form-group">
+					<label>Photo</label>
+					<input type="file" name="profile_pic">
+				</div>
+				<div class="form-group">
 					<label>Email ID</label>
 					<input type="email" name="email_id" class="form-control">
 				</div>

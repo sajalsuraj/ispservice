@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'mainctrl/view';
 $route['(:any)'] = 'mainctrl/view/$1';
 $route['invoice/generate'] = 'mainctrl/pdf';
+$route['customer/detail'] = 'mainctrl/customerpdf';
 $route['admin/(:any)'] = 'mainctrl/superadmin/$1';
 $route['customer/(:any)'] = 'mainctrl/customer/$1'; 
 $route['user/logout'] = 'logout/logout'; 

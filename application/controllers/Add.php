@@ -29,6 +29,11 @@ class Add extends CI_Controller{
       $folder= base_url().'assets/addressproof/';
       $target_file_img = $folder. basename($_FILES["address_proof"]["name"]);
       move_uploaded_file($_FILES["address_proof"]["tmp_name"], $target_file_img);
+
+      $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
+      $folder= base_url().'assets/images/';
+      $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
+      move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
       /*$data = array(
 
         'first_name' => $this->input->post('first_name'),
@@ -84,6 +89,11 @@ class Add extends CI_Controller{
          $_POST['password'] = rand(00000000,99999999);
          $_POST['type'] = "subadmin";
          $_POST['user_id'] = rand(00000000,99999999);
+
+         $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
+         $folder= base_url().'assets/images/';
+         $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
+         move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
          $data = $this->superadmin->addSubAdmin($_POST);
       
          

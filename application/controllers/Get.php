@@ -62,7 +62,7 @@ class Get extends CI_Controller{
 
     public function getCustomerDetails(){
     	$data = $this->customer->getCustomerById($_POST['id']);
-    	echo json_encode(['status'=> true, 'data' => $data]);
+    	echo json_encode(['status'=> true, 'data' => $data]); 
     } 
 
     public function getDataplan(){

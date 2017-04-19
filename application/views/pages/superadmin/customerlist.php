@@ -68,7 +68,7 @@
 									<td><?php echo $customer->first_name; ?> <?php echo $customer->last_name; ?></td> 
 									<td><?php echo $customer->phone; ?></td> 
 									<td><?php echo $customer->data_plan; ?></td>  
-									<td><button id="cust_<?php echo $customer->customer_id; ?>" class="btn custEdit">Edit</button> <button id="cusdel_<?php echo $customer->customer_id; ?>" class="btn delCust">Delete</button></td>
+									<td><button id="cust_<?php echo $customer->customer_id; ?>" class="btn custEdit">Edit</button> <button id="cusdel_<?php echo $customer->customer_id; ?>" class="btn delCust">Delete</button> <a id="cusInfo_<?php echo $customer->customer_id; ?>" href="<?php echo base_url(); ?>customer/detail?id=<?php echo $customer->customer_id; ?>" class="btn btn-invoice">Download</a></td>
 								</tr> 
 						<?php }?> 
 				</tbody> 
@@ -311,5 +311,7 @@
 		        
 		    }
 		});
+
+
 	</script>
 </div>
