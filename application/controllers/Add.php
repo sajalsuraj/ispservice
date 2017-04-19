@@ -119,6 +119,26 @@ class Add extends CI_Controller{
             echo json_encode(['status' => false, 'message' => 'Query not created']);
          }
     }
+
+    public function addBanner(){
+
+        $_POST['status'] = "true";
+        $_POST['banner_img'] = $_FILES["banner_img"][ "name" ];
+         $folder= $_SERVER['DOCUMENT_ROOT'].'/internetservice/assets/resources/images/slider/';
+         $target_file_img = $folder. basename($_FILES["banner_img"]["name"]);
+         move_uploaded_file($_FILES["banner_img"]["tmp_name"], $target_file_img);
+
+        $data = $this->admin->addBanner($_POST);
+      
+         if($data){
+            echo json_encode(['status' => true, 'message' => 'Banner Uploaded']);
+         }
+         else{
+            echo json_encode(['status' => false, 'message' => 'Error while uploading']);
+         }
+
+
+    }
 }
 
 

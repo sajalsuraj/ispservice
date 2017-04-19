@@ -5,45 +5,17 @@
                     <div class="ban_slider">
                                             <!--own repeat-->
                                             <!--single product in loop-->
+                                            <?php $getAllBanners = $this->admin->getAllBanners(); ?>
+                                            <?php foreach ($getAllBanners['result'] as $banner) { ?>
                                             <div>
                                                 <div class="ban_rota_img">
                                                     <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
+                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/<?php echo $banner->banner_img; ?>" alt="" />
                                                     </a>
                                                 </div>
                                             </div>  
+                                            <?php } ?>
                                             <!--ends here-->
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            
-                        
                                     </div>
                 </div>
             

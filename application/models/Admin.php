@@ -16,6 +16,15 @@ class Admin extends CI_Model{
 	public function addSubAdmin($data){
 		return $this->db->insert('users',$data) ? true : false ;
 	}
+    public function addBanner($data){
+        return $this->db->insert('banner',$data) ? true : false ;
+    }
+
+    public function getAllBanners(){
+        $query = $this->db->get('banner');
+        $data['result'] = $query->result();
+        return $data; 
+    }
 
 	public function getAdmin($id){
         $this->db->select('*');

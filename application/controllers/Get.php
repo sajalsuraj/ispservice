@@ -16,7 +16,7 @@ class Get extends CI_Controller{
 	     	$newdata = array(
 			        'name'  =>  $data->first_name." ".$data->last_name,
 			        'user_id'     => $data->user_id,
-			        'type' => $data->type
+			        'type' => $data->type 
 			);
 
 			$this->session->set_userdata($newdata);
@@ -38,6 +38,18 @@ class Get extends CI_Controller{
     	else{
     		echo json_encode($data);
     	}
+    }//end function
+
+    public function getAllBanners(){
+
+        $data = $this->admin->getAll();
+
+        if($data != NULL){
+            echo json_encode($data);
+        }
+        else{
+            echo json_encode($data);
+        }
     }//end function
 
     public function customerLogin(){
