@@ -54,9 +54,13 @@
 				<thead> 
 					<tr> 	
 						<th>Customer ID</th> 
-						<th>Customer Name</th>
-						<th>Phone Number</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>DOJ</th>
 						<th>Data Plan</th> 
+						<th>Status</th>
 						<th>Actions</th>
 					</tr> 
 				</thead> 
@@ -67,9 +71,13 @@
 							foreach ($allCustomer['result'] as $customer) { ?>
 								<tr> 	
 									<td><?php echo $customer->customer_id; ?></td>
-									<td><?php echo $customer->first_name; ?> <?php echo $customer->last_name; ?></td> 
+									<td><?php echo $customer->first_name; ?></td> 
+									<td><?php echo $customer->last_name; ?></td>
+									<td><?php echo $customer->email; ?></td>
 									<td><?php echo $customer->phone; ?></td> 
+									<td><?php echo $customer->doj; ?></td>
 									<td><?php echo $customer->data_plan; ?></td>  
+									<td><?php echo $customer->status; ?></td>
 									<td><button id="cust_<?php echo $customer->customer_id; ?>" class="btn custEdit">Edit</button> <button id="cusdel_<?php echo $customer->customer_id; ?>" class="btn delCust">Delete</button> <a id="cusInfo_<?php echo $customer->customer_id; ?>" href="<?php echo base_url(); ?>customer/detail?id=<?php echo $customer->customer_id; ?>" class="btn btn-invoice">Download</a></td>
 								</tr> 
 						<?php }?> 
@@ -87,7 +95,7 @@
 	      </div>
 	      <div class="modal-body">
 	        <div class="container-fluid editcustbox">	
-	        	<form id="editCustomerForm">
+	        	<form id="editCustomerForm" enctype="multipart/form-data">
 	        		<table class="table table-bordered">
 	        			<thead>
 	        				<th>Fields</th>
@@ -183,16 +191,20 @@
 	        					</td>
 	        				</tr>
 	        				<tr>
+	        					<td>Customer Photo</td>
+	        					<td><input type="file" name="profile_pic"><a id="profilePic" target="_blank"></a></td>
+	        				</tr>
+	        				<tr>
 	        					<td>KYC Form</td>
-	        					<td><input type="file" name="kyc_form"></td>
+	        					<td><input type="file" name="kyc_form"> <a id="kyc" target="_blank"></a></td>
 	        				</tr>
 	        				<tr>
 	        					<td>ID Proof</td>
-	        					<td><input type="file" name="id_proof"></td>
+	        					<td><input type="file" name="id_proof"><a id="idProof" target="_blank"></a></td>
 	        				</tr>
 	        				<tr>
 	        					<td>Address Proof</td>
-	        					<td><input type="file" name="address_proof"></td>
+	        					<td><input type="file" name="address_proof"><a id="addProof" target="_blank"></a></td>
 	        				</tr>
 	        				<tr>
 	        					<td>Status</td>
@@ -252,6 +264,38 @@
 					$('input[name=eq_mac]').val(as.data.eq_mac);
 					$('input[name=eq_manufacture]').val(as.data.eq_manufacture);
 					$('select[name=status]').val(as.data.status);
+					if(as.data.kyc_form != ""){
+						$('#kyc').attr('href', '<?php echo base_url()."assets/kyc/" ?>'+as.data.kyc_form);
+						$('#kyc').html('View');
+					}
+					else{
+						$('#kyc').attr('href','');
+						$('#kyc').html('');
+					}
+					if(as.data.id_proof != ""){
+						$('#idProof').attr('href', '<?php echo base_url()."assets/idproof/" ?>'+as.data.id_proof);
+						$('#idProof').html('View');
+					}
+					else{
+						$('#idProof').attr('href','');
+						$('#idProof').html('');
+					}
+					if(as.data.address_proof != ""){
+						$('#addProof').attr('href', '<?php echo base_url()."assets/addressproof/" ?>'+as.data.address_proof);
+						$('#addProof').html('View');
+					}
+					else{
+						$('#addProof').attr('href','');
+						$('#addProof').html('');
+					}
+					if(as.data.profile_pic != ""){
+						$('#profilePic').attr('href', '<?php echo base_url()."assets/images/" ?>'+as.data.profile_pic);
+						$('#profilePic').html('View');
+					}
+					else{
+						$('#profilePic').attr('href','');
+						$('#profilePic').html('');
+					}
 					$('#custEditBox').modal('show');
 				}
 			});

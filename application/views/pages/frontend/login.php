@@ -43,7 +43,7 @@
 									</label>
 								</li>
 								<li class="wid_half">
-									<a href="changepassword">Forgot password</a>
+									<a href="recoverpassword">Forgot password</a>
 									
 								</li>
 							</ul>

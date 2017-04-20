@@ -102,17 +102,11 @@
 					</li>
 				</ul>
 			 
-				
-			
 				<div class="form_below">
 					<div class="frm_left" style="margin-left:20px;">
 						<input type="submit" value="Save" class="up_save_btn" />
 					</div>
 				</div>
-			
-			
-			
-			
 			</div>
 			
 			</form>
@@ -121,7 +115,7 @@
 				Wants to pay your Bill??? <a href="#">Click here to pay</a>
 			</div>
 			<div class="up_issue" style="margin:0 0 30px 0;">
-				<a href="#">Invoices</a>
+				<a href="#">Invoices</a> | <a href="changepassword">Change your password</a> | <a href="support">Support</a>
 			</div>
 		
 		

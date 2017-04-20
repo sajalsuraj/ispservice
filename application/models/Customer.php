@@ -49,6 +49,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         return $query;
       }
 
+      public function getCustomerByEmail($email){
+        $this->db->select('*');
+            $query = $this->db->get_where('customer', array('email' => $email))->row();
+        return $query;
+      }
+
       public function getOrders(){
         $this->db->select('*');
         $this->db->from('orders as o, customer as c');

@@ -158,7 +158,7 @@
 					<div class="form-group">
 						<label>Data Plan</label>
 						<select class="form-control" name="data_plan">
-							<option>Select data plan</option> 
+							<option disabled>Select data plan</option> 
 							<?php 
 							$allPlans = $this->dataplan->getAll();
 							
@@ -169,7 +169,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label>Select Billing Date</label>
+						<label>Select Billing Cycle Date</label>
 						<input type="text" id="billingdate" name="billing_cycle" class="form-control">
 					</div>
 					<div class="form-group">
@@ -202,19 +202,19 @@
 					</div>
 					<div class="form-group">
 						<label>KYC Form</label>
-						<input type="file" name="kyc_form">
+						<input type="file" name="kyc_form" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Customer Photo</label>
-						<input type="file" name="profile_pic">
+						<input type="file" name="profile_pic" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>ID Proof</label>
-						<input type="file" name="id_proof">
+						<input type="file" name="id_proof" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Address Proof</label>
-						<input type="file" name="address_proof">
+						<input type="file" name="address_proof" class="form-control">
 					</div>
 
 				</div>
@@ -244,8 +244,10 @@
 	        $.ajax({
 	        	url:'<?php echo base_url(); ?>add/addCustomer',
 	        	type: 'POST',
-                data: $('form').serialize(),
-                dataType:'json',
+                data: new FormData( form ),
+                processData: false,
+		        contentType: false,
+		        dataType:'json',
                 success:function(as){
                 	console.log(as);
                 	if(as.status == true){

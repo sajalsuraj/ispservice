@@ -39,7 +39,7 @@ class Get extends CI_Controller{
     		echo json_encode($data);
     	}
     }//end function
-
+  
     public function getAllBanners(){
 
         $data = $this->admin->getAll();
@@ -95,6 +95,29 @@ class Get extends CI_Controller{
     public function checkCustomerpass(){
     	$data = $this->customer->checkPassword($_POST['oldpass'], $_POST['id']);
     	echo json_encode(['data' => $data]);
+    }
+
+    public function recoverpassword(){
+
+        $data = $this->customer->getCustomerByEmail($_POST['email']);
+
+        if($data == NULL){
+            echo json_encode(['status'=> false, 'data' => "Email ID doesn't exist!"]); 
+        }
+        else{
+            var_dump($data);
+            $msg = "Greetings from ISP Service. Your password is ".$data->password;
+
+            // use wordwrap() if lines are longer than 70 characters
+            $msg = wordwrap($msg,70);
+
+            $headers = "From: sajal.suraj@suved.co". "\r\n" .
+                        'X-Mailer: PHP/' . phpversion();
+            // send email
+            mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+
+        }
+
     }
 
 }
