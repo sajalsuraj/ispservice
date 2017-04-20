@@ -3,12 +3,15 @@
 		if($this->session->userdata('type') == "superadmin"){
 			
 		}
+		else if($this->session->userdata('type') == "subadmin"){
+			redirect('admin/customerlist');
+		}
 		else{
-			redirect('superadmin/login'); 
+			redirect('admin/login'); 
 		}
 	}
 	else{
-		redirect('superadmin/login');
+		redirect('admin/login');
 	}
 ?>
 <div class="container-fluid">
@@ -21,7 +24,8 @@
 			    <li><a href="invoiceorderlist">Invoice</a></li>
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li> 
-			    <li><a href="banner">HomePage Banner</a></li> 
+			    <li><a href="banner">HomePage Banner</a></li>
+			    <li><a href="add-event">Manage Events</a></li>  
 			</ul>
 		</div>
 		<div class="menu fleft"><a href="changepassword">Password Change</a></div>
@@ -52,7 +56,7 @@
 				</thead>
 				<tbody>
 					<?php 
-							$allQueries = $this->superadmin->getAllQueries();
+							$allQueries = $this->admin->getAllQueries();
 
 							foreach ($allQueries['result'] as $query) { ?>
 								<tr>

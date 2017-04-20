@@ -16,12 +16,23 @@ class Admin extends CI_Model{
 	public function addSubAdmin($data){
 		return $this->db->insert('users',$data) ? true : false ;
 	}
+
     public function addBanner($data){
         return $this->db->insert('banner',$data) ? true : false ;
     }
 
+    public function addEvent($data){
+        return $this->db->insert('event',$data) ? true : false ;
+    }
+
     public function getAllBanners(){
         $query = $this->db->get('banner');
+        $data['result'] = $query->result();
+        return $data; 
+    }
+
+    public function getAllEvents(){
+        $query = $this->db->get('event');
         $data['result'] = $query->result();
         return $data; 
     }
@@ -66,6 +77,15 @@ class Admin extends CI_Model{
         return true;
     }
 
+    public function changeEventStatus($status, $id){
+        $data = array(
+           'status' => $status
+        );
+        $this->db->where('id', $id);
+        $this->db->update('event', $data); 
+        return true;
+    }
+
     public function getAllQueries(){
         $query = $this->db->get('contact');
         $data['result'] = $query->result();
@@ -74,6 +94,11 @@ class Admin extends CI_Model{
 
     public function deleteBanner($id){
            $res = $this->db->delete('banner', array('id' => $id)); 
+           return $res;
+    }
+
+    public function deleteEvent($id){
+           $res = $this->db->delete('event', array('id' => $id)); 
            return $res;
     }
 }

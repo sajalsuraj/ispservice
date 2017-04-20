@@ -39,4 +39,15 @@ class Delete extends CI_Controller{
         }
 
     } 
+
+    public function deleteEvent(){
+
+        if($this->admin->deleteEvent($_POST['id'])){
+            echo json_encode(['status' => true, 'message' => 'Event deleted successfully']);
+        }
+        else{
+            echo json_encode(['status' => false, 'message' => 'Unable to delete']);
+        }
+
+    } 
 }

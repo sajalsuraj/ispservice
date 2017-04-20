@@ -136,8 +136,19 @@ class Add extends CI_Controller{
          else{
             echo json_encode(['status' => false, 'message' => 'Error while uploading']);
          }
+    }
 
+    public function addEvent(){
 
+        $_POST['status'] = "true";
+        $data = $this->admin->addEvent($_POST);
+      
+         if($data){
+            echo json_encode(['status' => true, 'message' => 'Event Added']);
+         }
+         else{
+            echo json_encode(['status' => false, 'message' => 'Error while adding']);
+         }
     }
 }
 

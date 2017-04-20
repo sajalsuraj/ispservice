@@ -30,16 +30,10 @@
                     <div class="rece_head">News and<span>Events</span></div>
                     <div class="scroll_blck">
                         <div class="marquee" id="mycrawler">
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            <span><a href="#"><strong>We are going to launch new data Plans </a></span>
-                            
+                            <?php $getAllEvents = $this->admin->getAllEvents(); ?>
+                            <?php foreach ($getAllEvents['result'] as $event) { ?>
+                            <span><a href="#"><strong><?php echo $event->description; ?></a></span>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

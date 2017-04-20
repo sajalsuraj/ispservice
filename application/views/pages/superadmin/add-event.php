@@ -27,7 +27,7 @@
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li> 
 			    <li><a href="banner">HomePage Banner</a></li> 
-			    <li><a href="add-event">Manage Events</a></li>
+			    <li><a href="add-event">Manage Events</a></li> 
 			</ul>
 		</div>
 		<?php } ?>
@@ -45,39 +45,56 @@
 	</div>
 
 	<div class="col-md-12 heading">
-		<h3>Add Banner</h3>
+		<h3>Add News</h3>
 	</div>
 
 	<div class="col-md-12">
 		<div class="col-md-4 col-md-offset-4">
-			<form id="addBanner">
+			<form id="addEvent">
 				<div class="form-group">
-					<label>Upload Banner Image</label>
-					<input type="file" name="banner_img" class="form-control">
+					<label>Title</label>
+					<input type="text" name="name" class="form-control">
 				</div>
 				<div class="form-group">
-					<center><button type="submit" class="btn btn-plan">Add Banner</button></center>
+					<label>Description</label>
+					<input type="text" name="description" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Start Date</label>
+					<input type="text" name="startDate" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>End Date</label>
+					<input type="text" name="endDate" class="form-control">
+				</div>
+				<div class="form-group">
+					<center><button type="submit" class="btn btn-plan">Add News</button></center>
 				</div>
 			</form>
 		</div>
-		<?php $getAllBanners = $this->admin->getAllBanners(); ?>
+		<?php $getAllEvents = $this->admin->getAllEvents(); ?>
 		<div class="col-md-12">
+			<h4><u>List of all Events/News:</u></h4>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Banner ID</th>
-						<th>Banner Image</th>
+						<th>Event Title</th>
+						<th>Description</th>
+						<th>Start Date</th>
+						<th>End Date</th>
 						<th>Status</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach ($getAllBanners['result'] as $banner) { ?>
+				<?php foreach ($getAllEvents['result'] as $event) { ?>
 					<tr>
-						<td><?php echo $banner->id; ?></td>
-						<td><a href="<?php echo base_url().'assets/resources/images/slider/'. $banner->banner_img; ?>" target="_blank"><?php echo $banner->banner_img; ?></a></td>
-						<td><?php if($banner->status == "true"){ echo "Enabled";}else{ echo "Disabled"; } ?></td>
-						<td><?php if($banner->status == "true"){ echo "<button id='disable_".$banner->id."' class='btn btn-danger status'>Disable</button>";}else{ echo "<button id='enable_".$banner->id."' class='btn btn-success status'>Enable</button>"; } ?>&nbsp;&nbsp;<button id="banner_<?php echo $banner->id; ?>" class="btn delBanner">Delete</button></td>
+						<td><?php echo $event->name; ?></td>
+						<td><?php echo $event->description; ?></td>
+						<td><?php echo $event->startDate; ?></td>
+						<td><?php echo $event->endDate; ?></td>
+						<td><?php if($event->status == "true"){ echo "Enabled";}else{ echo "Disabled"; } ?></td>
+						<td><?php if($event->status == "true"){ echo "<button id='disable_".$event->id."' class='btn btn-danger status'>Disable</button>";}else{ echo "<button id='enable_".$event->id."' class='btn btn-success status'>Enable</button>"; } ?>&nbsp;&nbsp;<button id="event_<?php echo $event->id; ?>" class="btn delEvent">Delete</button></td>
 					</tr>
 				<?php } ?>
 				</tbody>
@@ -86,16 +103,22 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$("#addBanner").submit(function(event) {
+
+	$('input[name=startDate], input[name=endDate]').datepicker({
+		dateFormat: 'dd-mm-yy'
+	});
+
+	$("#addEvent").submit(function(event) {
 	    event.preventDefault();
 	}).validate({
 	    rules: {
-	     banner_img:"required"
+	     name:"required",
+	     description:"required",
 	    },
 	    submitHandler: function(form) { 
 	    	
 	        $.ajax({
-	        	url:'<?php echo base_url(); ?>add/addBanner',
+	        	url:'<?php echo base_url(); ?>add/addEvent',
 	        	type: 'POST',
                 data: new FormData( form ),
                 processData: false,
@@ -126,7 +149,7 @@
 
 		var obj = {id:detail.split('_')[1], status:status};
 		$.ajax({
-	        	url:'<?php echo base_url(); ?>update/changebannerstatus',
+	        	url:'<?php echo base_url(); ?>update/changeeventstatus',
 	        	type: 'POST',
                 data: obj,
 		        dataType:'json',
@@ -143,13 +166,13 @@
 	});
 
 	//Delete banner
-	$('.delBanner').click(function(){  
+	$('.delEvent').click(function(){  
 		var id = $(this).attr('id');
-		if (confirm("Do you really want to delete this Banner ?") == true) {
+		if (confirm("Do you really want to delete this Event/News ?") == true) {
 
 			var obj = {id:id.split("_")[1]};
 	        $.ajax({
-	        	url:'<?php echo base_url(); ?>delete/deleteBanner',
+	        	url:'<?php echo base_url(); ?>delete/deleteEvent',
 	        	type: 'POST',
                 data: obj,
                 dataType:'json',
@@ -159,7 +182,7 @@
                 		location.reload();
                 	}
                 	else{
-                		alert("Error while updating");
+                		alert("Error while deleting");
                 	}
                 }
 	        });

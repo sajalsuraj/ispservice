@@ -74,4 +74,13 @@ class Update extends CI_Controller{
 			echo json_encode(['status' => false, 'message' => "Not Updated"]);
 		}
     }
+
+    public function changeeventstatus(){
+    	if($this->admin->changeEventStatus($_POST['status'], $_POST['id'])){  
+			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
 }
