@@ -296,8 +296,8 @@
 	//Edit Admin
 	var adminId = "";
 	$('.editAdmin').click(function(){
-		eventId = $(this).attr('id');
-		var obj = {id:eventId.split("_")[1]};
+		adminId = $(this).attr('id');
+		var obj = {id:adminId.split("_")[1]};
 	        $.ajax({
 	        	url:'<?php echo base_url(); ?>get/getAdminById',
 	        	type: 'POST',
@@ -330,7 +330,7 @@
 	        });
 	});
 
-	//Function for updating customer 
+	//Function for updating admin details
 	$("#editAdminForm").submit(function(event) {
 	    event.preventDefault();
 	}).validate({
@@ -341,7 +341,7 @@
 	    submitHandler: function(form) { 
 	    	
 	        $.ajax({
-	        	url:'<?php echo base_url(); ?>update/admin?id='+eventId.split("_")[1],
+	        	url:'<?php echo base_url(); ?>update/admin?id='+adminId.split("_")[1],
 	        	type: 'POST',
                 data: new FormData( form ),
 		        processData: false,
@@ -357,6 +357,32 @@
                 	}
                 }
 	        });
+	    }
+	});
+
+	//Function for deleting admin
+	$('.delAdmin').click(function(){  
+		adminId = $(this).attr('id');
+		if (confirm("Do you really want to delete this user ?") == true) {
+
+			var obj = {id:adminId.split("_")[1]};
+	        $.ajax({
+	        	url:'<?php echo base_url(); ?>delete/deleteAdmin',
+	        	type: 'POST',
+                data: obj,
+                dataType:'json',
+                success:function(as){
+                	if(as.status == true){
+                		alert(as.message);
+                		location.reload();
+                	}
+                	else{
+                		alert("Error while updating");
+                	}
+                }
+	        });
+	    } else {
+	        
 	    }
 	});
 </script>

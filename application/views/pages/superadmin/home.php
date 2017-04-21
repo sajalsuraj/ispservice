@@ -75,6 +75,13 @@
 						<td><input type="text" name="" readonly="" value="<?php echo $user->last_name; ?>" class="form-control"></td> 
 					</tr> 
 					<tr> 
+						<td>Photo</td> 
+						<td><?php if($user->profile_pic == ""){ echo "No Image Added"; }else{ ?>
+								<img style="width:100px;height:100px;" src="<?php echo base_url() ?>assets/images/<?php echo $user->profile_pic; ?>" />
+							<?php } ?>
+						</td> 
+					</tr> 
+					<tr> 
 						<td>Email</td> 
 						<td><input type="email" name="" readonly="" value="<?php echo $user->email_id; ?>" class="form-control"></td> 
 					</tr> 
@@ -96,7 +103,7 @@
 					</tr>
 					<tr> 
 						<td>Pincode</td> 
-						<td><input type="text" name="" readonly="" value="<?php echo $user->pincode; ?>" class="form-control"></td> 
+						<td><input type="text" name="" readonly="" value="<?php echo $user->pincode; ?>" class="form-control"></td>  
 					</tr>
 				</tbody> 
 			</table>

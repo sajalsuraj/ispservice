@@ -48,6 +48,14 @@ class Delete extends CI_Controller{
         else{
             echo json_encode(['status' => false, 'message' => 'Unable to delete']);
         }
-
     } 
+
+    public function deleteAdmin(){
+        if($this->admin->deleteAdmin($_POST['id'])){
+            echo json_encode(['status' => true, 'message' => 'Admin deleted successfully']);
+        }
+        else{
+            echo json_encode(['status' => false, 'message' => 'Unable to delete']);
+        }
+    }
 }

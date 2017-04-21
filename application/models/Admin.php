@@ -114,6 +114,11 @@ class Admin extends CI_Model{
            return $res;
     }
 
+    public function deleteAdmin($id){
+           $res = $this->db->delete('users', array('user_id' => $id)); 
+           return $res;
+    }
+
     public function updateEvent($data, $id){
         $this->db->where('id', $id);
         return $this->db->update('event', $data) ? true : false;
