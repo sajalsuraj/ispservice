@@ -55,6 +55,26 @@ class Update extends CI_Controller{
 		}
     }
 
+    public function admin(){
+
+    	 if(!empty($_FILES["profile_pic"]["name"])){
+		      if (isset($_FILES["profile_pic"]["name"])) {
+		        $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
+		        $folder= './assets/images/';
+		        $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
+		        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
+		      }
+		  }
+
+		  if($this->admin->updateAdmin($_POST, $_GET['id'])){
+			echo json_encode(['status' => true, 'message' => "Admin Details updated successfully"]);
+		  }
+		  else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		  }
+
+    }
+
     public function dataplan(){
     	if($this->dataplan->updateDataPlan($_POST, $_GET['id'])){  
 			echo json_encode(['status' => true, 'message' => "Data plan updated successfully"]);
@@ -94,6 +114,33 @@ class Update extends CI_Controller{
     public function changeeventstatus(){
     	if($this->admin->changeEventStatus($_POST['status'], $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
+
+    public function changeadminstatus(){
+    	if($this->admin->changeAdminStatus($_POST['status'], $_POST['id'])){  
+			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
+
+    public function invoicestatus(){
+    	if($this->invoice->changeStatus($_POST['month'], $_POST['year'])){  
+			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
+
+    public function event(){
+    	if($this->admin->updateEvent($_POST, $_GET['id'])){  
+			echo json_encode(['status' => true, 'message' => "Event updated successfully"]);
 		}
 		else{
 			echo json_encode(['status' => false, 'message' => "Not Updated"]);

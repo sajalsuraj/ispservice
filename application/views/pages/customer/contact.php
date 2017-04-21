@@ -12,7 +12,7 @@
 		redirect('customer/login');
 	}
 
-?> 
+?>  
 <div class="container-fluid">
 	<div class="col-md-12 menubar"> 
 		<div class="menu fleft"><a href="home">Home</a></div>

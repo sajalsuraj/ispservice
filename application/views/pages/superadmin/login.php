@@ -8,7 +8,7 @@
 
 ?>
 <div class="col-md-12">
-	<div class="container-fluid">
+	<div class="container-fluid"> 
 		<div class="col-md-4 col-md-offset-4 login-form">
 			<form id="superAdminLogin">
 				<div class="form-group">
@@ -46,6 +46,9 @@
                 success:function(as){
                 	if(as.status == true){
                 		location.href="home";
+                	}
+                	else if(as.status == "disabled"){
+                		alert("This user is disabled");
                 	}
                 	else if(as.status == false){
                 		alert("Wrong Email or Password");

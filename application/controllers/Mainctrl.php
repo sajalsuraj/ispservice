@@ -119,7 +119,7 @@ class Mainctrl extends CI_Controller {
   
     // set auto page breaks
     $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
-  
+   
     // set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
   
@@ -148,12 +148,14 @@ class Mainctrl extends CI_Controller {
     //$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));    
   
     // Set some content to print
+
+    $data = $this->customer->getOrderById($_GET['order_no']);
     $html = '<p style="text-align:center;"><u>Invoice</u></p>
     <table>
        <tbody>
             <tr>
-                <td>Kedar Brahme<br>ABC Colony, HSR Layout, <br />Hosapalya, Bangalore - 560032</td>
-                <td>Invoice No. : BC/2017/04/4169<br>Order No. : ISP/03042017/46033651/1<br>Circuit ID : 46033651</td>
+                <td>'.$data->first_name.' '.$data->last_name.'<br>'.$data->address.'</td>
+                <td>Invoice No. : '.$data->invoice_no.'<br>Order No. : '.$data->order_no.'<br>Circuit ID : '.$data->circuit_id.'</td>
                 <td>Invoice Date - 01/04/2017<br>Due Date - 10/04/2017</td>
             </tr>
        </tbody>
@@ -170,12 +172,12 @@ class Mainctrl extends CI_Controller {
                 <th style="font-size:8.5px;padding:5px;text-align:center;">Amount Payable(Rs.)</th>
             </tr>
             <tr>
-                <td style="font-size:8.5px;padding:5px;text-align:center;">14,950.00</td>
-                <td style="font-size:8.5px;padding:5px;text-align:center;">14,883.00</td>
                 <td style="font-size:8.5px;padding:5px;text-align:center;">0.00</td>
-                <td style="font-size:8.5px;padding:5px;text-align:center;">67.00</td>
-                <td style="font-size:8.5px;padding:5px;text-align:center;">7,475.00</td>
-                <td style="font-size:8.5px;padding:5px;text-align:center;">7,542.00</td>
+                <td style="font-size:8.5px;padding:5px;text-align:center;">0.00</td>
+                <td style="font-size:8.5px;padding:5px;text-align:center;">0.00</td>
+                <td style="font-size:8.5px;padding:5px;text-align:center;">0.00</td>
+                <td style="font-size:8.5px;padding:5px;text-align:center;">'.$data->total_amount.'</td>
+                <td style="font-size:8.5px;padding:5px;text-align:center;">'.$data->total_amount.'</td>
             </tr>
         </tbody>
     </table>
@@ -190,23 +192,23 @@ class Mainctrl extends CI_Controller {
             <tr>
                 <td style="font-size:9.5px;">1</td>
                 <td style="font-size:9.5px;">Bandwidth Services<br>01/04/2017 to 30/04/2017</td>
-                <td style="font-size:9.5px;text-align:right;">6500.00</td>
+                <td style="font-size:9.5px;text-align:right;">'.$data->base_amount.'</td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size:9.5px;text-align:right;">Service Tax(14%)</td>
-                <td style="font-size:9.5px;text-align:right;">910.0</td>
+                <td style="font-size:9.5px;text-align:right;">'.$data->service_tax.'</td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size:9.5px;text-align:right;">SBC(0.5%)</td>
-                <td style="font-size:9.5px;text-align:right;">32.50</td>
+                <td style="font-size:9.5px;text-align:right;">'.$data->sbc.'</td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size:9.5px;text-align:right;">KKC(0.5%)</td>
-                <td style="font-size:9.5px;text-align:right;">32.50</td>
+                <td style="font-size:9.5px;text-align:right;">'.$data->kkc.'</td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size:9.5px;text-align:right;">Current months charges</td>
-                <td style="font-size:9.5px;text-align:right;">7,475.00</td>
+                <td style="font-size:9.5px;text-align:right;">'.$data->total_amount.'</td>
             </tr>
         </tbody>
     </table>
@@ -331,7 +333,7 @@ he/she found the statement correct.</p>
             <tr>
                 <td style="padding:5px;">City</td>
                 <td style="padding:5px;">'.$customerDetails->city.'</td>
-            </tr>
+            </tr> 
             <tr>
                 <td style="padding:5px;">State</td>
                 <td style="padding:5px;">'.$customerDetails->state.'</td>
@@ -351,6 +353,42 @@ he/she found the statement correct.</p>
             <tr>
                 <td style="padding:5px;">Data Plan</td>
                 <td style="padding:5px;">'.$customerDetails->data_plan.'</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">Date of Joining</td>
+                <td style="padding:5px;">'.$customerDetails->doj.'</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">Connectivity Type</td>
+                <td style="padding:5px;">'.$customerDetails->connectivity_type.'</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">IP Type</td>
+                <td style="padding:5px;">'.$customerDetails->ip_type.'</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">IP Detail</td>
+                <td style="padding:5px;">'.$customerDetails->ip_details.'</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">Billing Mode</td>
+                <td style="padding:5px;">'.$customerDetails->billing_mode.'</td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">Customer Pic</td>
+                <td style="padding:5px;"><img style="height:100px;width:100px;" src="'.base_url().'assets/images/'.$customerDetails->profile_pic.'" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">KYC Form</td>
+                <td style="padding:5px;"><img style="height:100px;width:100px;" src="'.base_url().'assets/kyc/'.$customerDetails->kyc_form.'" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">ID Proof</td>
+                <td style="padding:5px;"><img style="height:100px;width:100px;" src="'.base_url().'assets/idproof/'.$customerDetails->id_proof.'" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px;">Address Proof</td>
+                <td style="padding:5px;"><img style="height:100px;width:100px;" src="'.base_url().'assets/addressproof/'.$customerDetails->address_proof.'" /></td>
             </tr>
         </tbody>
     </table>

@@ -8,12 +8,12 @@ class Admin extends CI_Model{
 	}
 
 	public function login($data){
-		$this->db->select('first_name, last_name, user_id, type');
+		$this->db->select('first_name, last_name, user_id, type, status');
         $query = $this->db->get_where('users', array('email_id' => $data['email_id'], 'password' => $data['password']))->row();
 		return $query;
 	}
 
-	public function addSubAdmin($data){
+	public function addAdmin($data){
 		return $this->db->insert('users',$data) ? true : false ;
 	}
 
@@ -43,8 +43,14 @@ class Admin extends CI_Model{
         return $query;
     } 
 
+    public function getEventById($id){
+        $this->db->select('*');
+        $query = $this->db->get_where('event', array('id' => $id))->row();
+        return $query;
+    } 
+
     public function checkPassword($pass){
-   
+    
     	$query = "SELECT CASE WHEN EXISTS
                 (
                 SELECT * FROM users
@@ -92,6 +98,12 @@ class Admin extends CI_Model{
         return $data; 
     }
 
+    public function getAllAdmin(){
+        $query = $this->db->get('users');
+        $data['result'] = $query->result();
+        return $data; 
+    }
+
     public function deleteBanner($id){
            $res = $this->db->delete('banner', array('id' => $id)); 
            return $res;
@@ -100,6 +112,25 @@ class Admin extends CI_Model{
     public function deleteEvent($id){
            $res = $this->db->delete('event', array('id' => $id)); 
            return $res;
+    }
+
+    public function updateEvent($data, $id){
+        $this->db->where('id', $id);
+        return $this->db->update('event', $data) ? true : false;
+    }
+
+    public function changeAdminStatus($status, $id){
+        $data = array(
+           'status' => $status
+        );
+        $this->db->where('user_id', $id);
+        $this->db->update('users', $data); 
+        return true;
+    }
+
+    public function updateAdmin($data, $id){
+        $this->db->where('user_id', $id);
+        return $this->db->update('users', $data) ? true : false;
     }
 }
 

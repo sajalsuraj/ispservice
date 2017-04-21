@@ -33,5 +33,11 @@
 	        $query = $this->db->get_where('data_plan', array('id' => $id))->row();
 	        return $query;
 	    }
+
+	    public function getPlanByName($name){
+	        $this->db->select('*');
+	        $query = $this->db->get_where('data_plan', array('plan_name' => $name))->row();
+	        return $query;
+	    }
 	}
 ?>

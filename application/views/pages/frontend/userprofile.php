@@ -115,7 +115,7 @@
 				Wants to pay your Bill??? <a href="#">Click here to pay</a>
 			</div>
 			<div class="up_issue" style="margin:0 0 30px 0;">
-				<a href="#">Invoices</a> | <a href="changepassword">Change your password</a> | <a href="support">Support</a>
+				<a href="invoices">Invoices</a> | <a href="changepassword">Change your password</a> | <a href="support">Support</a>
 			</div>
 		
 		

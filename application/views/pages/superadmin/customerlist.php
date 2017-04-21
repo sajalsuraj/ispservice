@@ -19,7 +19,7 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
 			<ul class="dropdown-menu">
 			    <li><a href="orderlist">Order List</a></li>
-			    <li><a href="invoiceorderlist">Invoice</a></li>
+			    <li><a href="invoiceorderlist">Customer Invoice List</a></li>
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li> 
 			    <li><a href="banner">HomePage Banner</a></li> 
@@ -296,6 +296,7 @@
 						$('#profilePic').attr('href','');
 						$('#profilePic').html('');
 					}
+					$('#custEditBox').modal({backdrop: 'static', keyboard: false});
 					$('#custEditBox').modal('show');
 				}
 			});

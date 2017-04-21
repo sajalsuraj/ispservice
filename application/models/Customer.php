@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         return $query;
       }
 
-      public function createCustomer($data){
+      public function createCustomer($data){ 
         return $this->db->insert('customer',$data) ? true : false ;
       }
 
@@ -57,8 +57,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       public function getOrders(){
         $this->db->select('*');
-        $this->db->from('orders as o, customer as c');
-        $this->db->where('o.circuit_id = c.customer_id');
+        $this->db->from('invoice as o, customer as c');
+        $this->db->where('o.circuit_id = c.customer_id and o.payment_status="Paid"');
 
         $query = $this->db->get();
         return $query->result();
@@ -72,10 +72,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       public function getOrderById($id){ 
         $this->db->select('*');
-        $this->db->from('orders as o, customer as c');
+        $this->db->from('invoice as o, customer as c');
         $this->db->where('o.circuit_id = c.customer_id and o.order_no="'.$id.'"');
 
         $query = $this->db->get()->row();
+        return $query;
+      }
+
+      public function getOrderByCustomer($id){ 
+        $this->db->select('*');
+        $this->db->from('invoice as o, customer as c');
+        $this->db->where('o.circuit_id = "'.$id.'" and o.circuit_id = c.customer_id and o.payment_status="Pending"');
+
+        $query = $this->db->get()->result();
         return $query;
       }
 

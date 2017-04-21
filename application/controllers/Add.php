@@ -70,7 +70,28 @@ class Add extends CI_Controller{
       );*/
      
       if($this->customer->createCustomer($_POST)){
-         echo json_encode(['status' => true, 'message' => 'Customer added']);
+
+         $data = array();
+         $plan = $this->dataplan->getPlanByName($_POST['data_plan']);
+         $data['invoice_no'] = "BC/".date('Y')."/".date('m')."/".rand(0000,9999);
+         $data['circuit_id'] = $_POST['customer_id'];
+         $date = date('Y-m-d');
+         $data['month'] = date('m');
+         $data['year'] = date('Y');
+         $data['next_payment_date'] = date('Y-m-d', strtotime('+1 month', strtotime($date)));
+         $data['invoice_date'] = date('Y-m-d', strtotime('-5 days', strtotime($data['next_payment_date'])));
+         $data['order_no'] = "ISP/".$data['invoice_date']."/".$_POST['customer_id']."/".rand(0000,9999);
+         $data['base_amount'] = $plan->price;
+         $data['service_tax'] = 0.14 * intval($data['base_amount']);
+         $data['sbc'] = 0.005 * intval($data['base_amount']);
+         $data['kkc'] = 0.005 * intval($data['base_amount']);
+         $data['total_amount'] = intval($data['base_amount']) + intval($data['service_tax']) + intval($data['sbc']) + intval($data['kkc']);
+         $data['payment_status'] = "Pending";
+         $data['invoice_status'] = "Deactive";
+
+         if($this->invoice->createInvoice($data)){
+            echo json_encode(['status' => true, 'message' => 'Customer added']);
+         }
       }
       else{
         echo json_encode(['status' => false, 'message' => 'Customer not added']);
@@ -92,15 +113,17 @@ class Add extends CI_Controller{
 
     public function addAdmin(){
 
-         $_POST['password'] = rand(00000000,99999999);
-         $_POST['type'] = "subadmin";
+        if (isset($_FILES["profile_pic"]["name"])) {
+            $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
+            $folder= './assets/images/';
+            $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
+        }
+
+         $_POST['status'] = "true";
          $_POST['user_id'] = rand(00000000,99999999);
 
-         $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
-         $folder= base_url().'assets/images/';
-         $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
-         move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
-         $data = $this->superadmin->addSubAdmin($_POST);
+         $data = $this->admin->addAdmin($_POST);
       
          
          if($data){
