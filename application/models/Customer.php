@@ -55,20 +55,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         return $query;
       }
 
-      public function getOrders(){
+      public function getAllOrders($month, $year){
         $this->db->select('*');
         $this->db->from('invoice as o, customer as c');
-        $this->db->where('o.circuit_id = c.customer_id and o.payment_status="Paid"');
-
+        $this->db->where('o.circuit_id = c.customer_id and o.payment_status="Paid" and o.month="'.$month.'" and o.year="'.$year.'"');
         $query = $this->db->get();
         return $query->result();
       }
 
-      public function getAllOrders(){
-        $query = $this->db->get('orders');
-        $data['result'] = $query->result();
-        return $data; 
-      }
 
       public function getOrderById($id){ 
         $this->db->select('*');

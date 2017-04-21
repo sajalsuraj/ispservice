@@ -8,7 +8,7 @@ class Get extends CI_Controller{
     } 
 
     
-    public function adminLogin(){
+    public function adminLogin(){ 
     	
 	     $data = $this->admin->login($_POST);
 	    
@@ -114,7 +114,7 @@ class Get extends CI_Controller{
 
         if($data == NULL){
             echo json_encode(['status'=> false, 'data' => "Email ID doesn't exist!"]); 
-        }
+        } 
         else{
             $msg = "Greetings from ISP Service. Your password is ".$data->password;
 
@@ -125,6 +125,16 @@ class Get extends CI_Controller{
                         'X-Mailer: PHP/' . phpversion();
             // send email
             mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+        }
+    }
+
+    public function getAllOrders(){
+        $data = $this->customer->getAllOrders($_POST['month'], $_POST['year']);
+        if(sizeOf($data) > 0){
+            echo json_encode(['status'=> true, 'data' => $data]);
+        }
+        else{
+            echo json_encode(['status'=> false, 'data' => ""]);
         }
     }
 

@@ -149,9 +149,11 @@ class Mainctrl extends CI_Controller {
   
     // Set some content to print
 
-    $data = $this->customer->getOrderById($_GET['order_no']);
-    $html = '<p style="text-align:center;"><u>Invoice</u></p>
-    <table>
+    $data = $this->customer->getOrderById($_GET['order_no']); 
+
+    if($data->payment_status == "Paid"){
+        $details = '
+        <table>
        <tbody>
             <tr>
                 <td>'.$data->first_name.' '.$data->last_name.'<br>'.$data->address.'</td>
@@ -159,7 +161,23 @@ class Mainctrl extends CI_Controller {
                 <td>Invoice Date - 01/04/2017<br>Due Date - 10/04/2017</td>
             </tr>
        </tbody>
-    </table>
+    </table>';
+    }
+    else if($data->payment_status == "Pending"){
+        $details = '
+        <table>
+       <tbody>
+            <tr>
+                <td>'.$data->first_name.' '.$data->last_name.'<br>'.$data->address.'</td>
+                <td>Invoice No. : '.$data->invoice_no.'<br>Circuit ID : '.$data->circuit_id.'</td>
+                <td>Invoice Date - 01/04/2017<br>Due Date - 10/04/2017</td>
+            </tr>
+       </tbody>
+    </table>';
+    }
+
+    $html = '<p style="text-align:center;"><u>Invoice</u></p>
+    '.$details.'
     <p></p>
     <table border="1" cellpadding="5">
         <tbody>

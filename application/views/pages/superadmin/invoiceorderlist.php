@@ -12,7 +12,7 @@
 	}
 	else{
 		redirect('admin/login'); 
-	}
+	} 
 ?>
 <div class="container-fluid">
 	<div class="col-md-12 menubar"> 

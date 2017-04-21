@@ -31,7 +31,7 @@
 			<table class="table table-bordered">
 				<thead> 
 					<tr> 	 
-						<th>Order No.</th> 
+						<th>Invoice No.</th> 
 						<th>Customer Name</th>
 						<th>Capacity</th> 
 						<th>Circuit ID</th> 
@@ -43,7 +43,7 @@
 				<tbody>
 					<?php foreach($allorders as $order){ ?>
 					<tr>
-						<td><a id="cust_<?php echo $order->customer_id; ?>" class="cursorpoint opencustbox"><?php echo $order->order_no; ?></a></td>
+						<td><?php echo $order->invoice_no; ?></td>
 						<td><?php echo $order->first_name." ".$order->last_name; ?></td>
 						<td><?php echo $order->data_plan; ?></td>
 						<td><?php echo $order->customer_id; ?></td>

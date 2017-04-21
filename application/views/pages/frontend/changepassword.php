@@ -33,10 +33,13 @@
 				<form id="changePass">
 					<ul>
 						<li>
-							<input type="text" name="old_pass" placeholder="Current Password" class="ipfield" />
+							<input type="password" name="old_pass" placeholder="Current Password" class="ipfield" />
 						</li>
 						<li>
-							<input type="text" name="new_pass" placeholder="New Password" class="ipfield" />
+							<input type="password" id="newpass" name="new_pass" placeholder="New Password" class="ipfield" />
+						</li>
+						<li>
+							<input type="password" name="re_pass" placeholder="Re-Type Password" class="ipfield" />
 						</li>
 						
 						<li>
@@ -58,7 +61,15 @@ $("#changePass").submit(function(event) {
 }).validate({
     rules: {
      	old_pass: "required",
-     	new_pass: "required"
+     	new_pass : {
+            minlength : 5,
+            required:true
+        },
+        re_pass : {
+            minlength : 5,
+            required:true,
+            equalTo : "#newpass"
+        }
     },
     submitHandler: function(form) {   
     	

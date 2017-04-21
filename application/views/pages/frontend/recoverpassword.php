@@ -14,10 +14,10 @@
 			<div class="row">	
 				<div class="col-xs-24">	
 					<div class="cus_log">
-						<form>
+						<form id="recoverPassForm">
 							<ul>
 								<li>
-									<input type="text" name="email" placeholder="Enter youe email address" class="ipfield" />
+									<input type="email" name="email" placeholder="Enter your email address" class="ipfield" />
 								</li>
 								
 								<li>
@@ -32,3 +32,26 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+	$("#recoverPassForm").submit(function(event) {
+	    event.preventDefault();
+	}).validate({
+	    rules: {
+	     email: "required"
+	    },
+	    submitHandler: function(form) { 
+	    	
+	        $.ajax({
+	        	url:'<?php echo base_url(); ?>get/recoverpassword',
+	        	type: 'POST',
+                data: $('form').serialize(),
+                dataType:'json',
+                success:function(as){
+                	if(as.status == false){
+                		alert(as.data);
+                	}
+                }
+	        });
+	    }
+	});
+</script>

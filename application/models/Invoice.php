@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
 
       public function createInvoice($data){
-		  return $this->db->insert('invoice',$data) ? true : false ;
+		  return $this->db->insert('invoice',$data) ? true : false ; 
       }
 
       public function getInvoiceByMonth($month, $status, $year){
@@ -22,5 +22,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       	$result = $this->db->query($query);
       	return $result;
       } 
+
   }
 ?>

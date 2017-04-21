@@ -57,7 +57,7 @@
 				</div>
 				<div class="form-group">
 					<label>Description</label>
-					<input type="text" name="description" class="form-control">
+					<textarea class="form-control" name="description"></textarea>
 				</div>
 				<div class="form-group">
 					<label>Start Date</label>

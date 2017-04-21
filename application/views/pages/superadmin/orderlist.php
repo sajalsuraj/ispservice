@@ -3,13 +3,16 @@
 		if($this->session->userdata('type') == "superadmin"){
 			
 		}
+		else if($this->session->userdata('type') == "subadmin"){
+			redirect('admin/customerlist');
+		}
 		else{
-			redirect('superadmin/login');
+			redirect('admin/login'); 
 		}
 	}
 	else{
-		redirect('superadmin/login');
-	}
+		redirect('admin/login'); 
+	} 
 ?>
 <div class="container-fluid">
 	<div class="col-md-12 menubar"> 
@@ -39,7 +42,31 @@
 	<div class="col-md-12 heading">
 		<h3>Order List</h3> 
 	</div>
-	<?php $allorders = $this->customer->getOrders();?>
+
+	<div class="col-md-12">
+		<div class="col-md-12 custList">
+			<div class="col-md-6 col-md-offset-3"> 
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<td>Date:</td>
+							<td><input id="date" readonly="" type="text" name="" class="form-control"></td>
+							<td>
+								<select class="form-control">
+									
+								</select>
+							</td> 
+						</tr>
+						<tr>
+							<td colspan="3">
+								<center><a id="getOrders" class="btn btn-invoice">Submit</a></center>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 	<div class="col-md-12">
 		<div class="col-md-12 custList">
@@ -52,19 +79,11 @@
 						<th>Circuit ID</th> 
 						<th>Order Status</th>
 						<th>Location</th>
+						<th>Actions</th>
 					</tr> 
 				</thead> 
-				<tbody>
-					<?php foreach($allorders as $order){ ?>
-					<tr>
-						<td><a id="cust_<?php echo $order->customer_id; ?>" class="cursorpoint opencustbox"><?php echo $order->order_no; ?></a></td>
-						<td><?php echo $order->first_name." ".$order->last_name; ?></td>
-						<td><?php echo $order->data_plan; ?></td>
-						<td><?php echo $order->customer_id; ?></td>
-						<td><?php echo $order->status; ?></td>
-						<td><?php echo $order->city; ?></td>
-					</tr>
-				    <?php } ?>
+				<tbody id="customerDetail">
+					
 				</tbody>
 			</table>
 		</div>
@@ -137,7 +156,7 @@
 	        				</tr>
 	        				<tr>
 	        					<td>Delivery Date</td>
-	        					<td id="date"></td>
+	        					<td id="dDate"></td>
 	        				</tr>
 	        				<tr>
 	        					<td>Equipment Provided by</td>
@@ -156,34 +175,150 @@
 	</div><!-- /.modal -->
 
 	<script type="text/javascript">
-		$('.opencustbox').click(function(){
+		
+		function customerBox(){
+			$('.opencustbox').click(function(){
 
-			var order_no = $(this).html();
-			var obj = {id:order_no};
+				var order_no = $(this).html();
+				var obj = {id:order_no};
+				$.ajax({
+					url:'<?php echo base_url(); ?>get/getorder',
+					type:'POST',
+					data: obj,
+					dataType:'json',
+					success:function(as){
+
+						$('#order_no').html(as.data.order_no);
+						$('#fName').html(as.data.first_name);
+						$('#lName').html(as.data.last_name);
+						$('#mobile').html(as.data.phone);
+						$('#address').html(as.data.address);
+						$('#city').html(as.data.city);
+						$('#state').html(as.data.state);
+						$('#pincode').html(as.data.pincode);
+						$('#bMode').html(as.data.billing_mode);
+						$('#capacity').html(as.data.data_plan);
+						$('#ipAdd').html(as.data.ip_details);
+						$('#dDate').html(as.data.billing_cycle);
+						$('#custBox').modal('show');
+					}
+				});
+				
+			});
+		}
+
+		var date = new Date();
+		var month = date.getMonth()+1;
+		var year = date.getFullYear();
+
+		var option = "", count = 0;
+
+		function getCustomerIdName(month, year){
+			var obj = {month:month, year:year};
 			$.ajax({
-				url:'<?php echo base_url(); ?>get/getorder',
+				url:'<?php echo base_url(); ?>get/getAllOrders',
 				type:'POST',
 				data: obj,
 				dataType:'json',
 				success:function(as){
+					option = '';
+					option += '<option value="all">All</option>';
 
-					$('#order_no').html(as.data.order_no);
-					$('#fName').html(as.data.first_name);
-					$('#lName').html(as.data.last_name);
-					$('#mobile').html(as.data.phone);
-					$('#address').html(as.data.address);
-					$('#city').html(as.data.city);
-					$('#state').html(as.data.state);
-					$('#pincode').html(as.data.pincode);
-					$('#bMode').html(as.data.billing_mode);
-					$('#capacity').html(as.data.data_plan);
-					$('#ipAdd').html(as.data.ip_details);
-					$('#date').html(as.data.billing_cycle);
-					$('#custBox').modal('show');
+					if(as.status == false){
+						$('select').html(option);
+					}
+					else if(as.status == true){
+						for(var i=0; i < as.data.length; i++){
+							option += '<option value="'+as.data[i].order_no+'">'+as.data[i].customer_id+'-'+as.data[i].first_name+'</option>';
+						}
+						$('select').html(option);
+					}
+
+					$('#getOrders').off().click(function(event){
+						event.preventDefault();
+						if($('select').val() == "all"){
+							var obj = {month:month, year:year};
+							$.ajax({
+								url:'<?php echo base_url(); ?>get/getAllOrders',
+								type:'POST',
+								data: obj,
+								dataType:'json',
+								success:function(res){
+									
+									
+									if(res.status == true){
+										var info = "";
+
+										
+										for(var i=0;i<res.data.length;i++){
+											info += '<tr>';
+											info += '<td><a id="cust_'+res.data[i].customer_id+'" class="cursorpoint opencustbox">'+res.data[i].order_no+'</a></td>';
+											info += '<td>'+res.data[i].first_name+' '+res.data[i].last_name+'</td>';
+											info += '<td>'+res.data[i].data_plan+'</td>';
+											info += '<td>'+res.data[i].customer_id+'</td>';
+											info += '<td>'+res.data[i].status+'</td>';
+											info += '<td>'+res.data[i].city+'</td>';
+											info += '<td><a href="<?php echo base_url()."invoice/generate?order_no=" ?>'+res.data[i].order_no+'" class="btn btn-invoice">Download Invoice</a></td>';
+											info += '</tr>';
+										}
+
+										$('#customerDetail').html(info);
+
+										customerBox();
+
+									}
+									else if(res.status == false){
+									
+										alert('No Data available for this month !!');
+									}
+								}
+							});
+						}
+						else{
+							$.ajax({
+								url:'<?php echo base_url(); ?>get/getorder',
+								data:{id:$('select').val()},
+								type:'POST',
+								dataType:'json',
+								success:function(as){
+									
+									console.log(as);
+									var invoiceField = "";
+									invoiceField += '<tr><td><a id="cust_'+as.data.circuit_id+'" class="cursorpoint opencustbox">'+as.data.order_no+'</a></td>';
+									invoiceField += '<td>'+as.data.first_name+' '+as.data.last_name+'</td>';
+									invoiceField += '<td>'+as.data.data_plan+'</td>';
+									invoiceField += '<td>'+as.data.circuit_id+'</td>';
+									invoiceField += '<td>'+as.data.status+'</td>';
+									invoiceField += '<td>'+as.data.city+'</td>';
+									invoiceField += '<td><a class="btn btn-invoice" href="<?php echo base_url()."invoice/generate?order_no=" ?>'+as.data.order_no+'">Download PDF</a></td></tr>';
+
+									$('#customerDetail').html(invoiceField);
+
+									customerBox();
+								}
+							});
+						}
+						
+					});
 				}
 			});
-			
-		});
+		}
+		
+		getCustomerIdName(month, year);
+
+		$('#date').datepicker({
+			dateFormat: 'yy-mm',
+		    changeMonth: true,
+		    changeYear: true,
+			onSelect: function(dateText, inst) {
+						var yearMonth = $(this).val();
+				      	month = yearMonth.split('-')[1];
+				      	year = yearMonth.split('-')[0];
+				      	getCustomerIdName(month, year);
+				      }
+		}).datepicker("setDate", new Date());
+
+		
 
 	</script>
 </div>
