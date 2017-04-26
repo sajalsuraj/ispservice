@@ -7,7 +7,9 @@
 <link href="<?php echo base_url(); ?>assets/resources/style/styles.css" type="text/css" rel="stylesheet" /> 
 <link href="<?php echo base_url(); ?>assets/resources/style/fonts.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/resources/style/owl.carousel.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/resources/script/jquery-2.2.0.js"></script>
+
 
  <script src="<?php echo base_url(); ?>assets/resources/script/owl.carousel-2.js"></script>
  <script src="<?php echo base_url(); ?>assets/resources/script/crawler.js"></script>
@@ -102,10 +104,10 @@ marqueeInit({
 				
 				<a href="contact-us">Contact Us</a>
 				<a href="payment-1" class="login">Online Payment</a>
-				<?php if($this->session->has_userdata('type') == true){
-						if($this->session->userdata('type') == "customer"){ ?>
+				<?php if($this->session->has_userdata('customer_type') == true){
+						if($this->session->userdata('customer_type') == "customer"){ ?>
 				    <a href="<?php echo base_url(); ?>userprofile" class="login">Profile</a>
-					<a href="<?php echo base_url(); ?>user/logout" class="login">Logout</a>
+					<a href="<?php echo base_url(); ?>custmer/logout" class="login">Logout</a>
 				<?php } else{ ?>
 					<a href="login" class="login">Login</a>
 				<?php } } else{ ?>

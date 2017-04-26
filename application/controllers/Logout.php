@@ -7,15 +7,23 @@ class Logout extends CI_Controller{
       parent::__construct();
     }
 
-    function logout(){
-    	if($this->session->userdata('type') == "customer"){
-    		$this->session->sess_destroy();
-    		redirect('login');
-    	}
-    	else if($this->session->userdata('type') == "superadmin" || $this->session->userdata('type') == "subadmin"){
-    		$this->session->sess_destroy();
+    public function logout(){
+    	
+    	if($this->session->userdata('type') == "superadmin" || $this->session->admin_userdata('type') == "subadmin"){
+    		$this->session->unset_userdata('type');
+            $this->session->unset_userdata('name');
+            $this->session->unset_userdata('user_id');
     		redirect('admin/login');
     	}
 
+    }
+
+    public function customerlogout(){
+        
+            $this->session->unset_userdata('customer_type');
+            $this->session->unset_userdata('customer_name');
+            $this->session->unset_userdata('customer_user_id');
+            redirect('login'); 
+        
     }
 }

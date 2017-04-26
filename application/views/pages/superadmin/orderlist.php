@@ -229,7 +229,7 @@
 					}
 					else if(as.status == true){
 						for(var i=0; i < as.data.length; i++){
-							option += '<option value="'+as.data[i].order_no+'">'+as.data[i].customer_id+'-'+as.data[i].first_name+'</option>';
+							option += '<option value="'+as.data[i].order_no+'">'+as.data[i].order_no+'</option>';
 						}
 						$('select').html(option);
 					}

@@ -56,6 +56,7 @@ class Mainctrl extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
+
     public function customer($page = 'home') {
 
         if (!file_exists(APPPATH . 'views/pages/customer/' . $page . '.php')) {

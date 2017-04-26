@@ -1,7 +1,7 @@
 <?php 
 	
-	if($this->session->has_userdata('type') == true){
-		if($this->session->userdata('type') == "customer"){
+	if($this->session->has_userdata('customer_type') == true){
+		if($this->session->userdata('customer_type') == "customer"){
 			
 		}
 		else{
@@ -21,7 +21,7 @@
 				<div class="col-lg-24">
 					<div class="sign_top">
 						<h1>We are Here to help you</h1>
-						<p>In case you need any query, fill the form given below:</p>
+						<p>In case you need any help, create a query ticket here:</p>
 					</div>
 					
 					
@@ -39,18 +39,12 @@
 			                             <input class="validate form-control" type="text" name="subject" />
 			                        </div>
 								</li>
-								
-								<li>
-									<div class="form-group con_area">
-			                             <label for="exampleInputEmail1">Your Query </label>
-			                              <textarea class="con_area validate form-control" name="query"></textarea>
-			                        </div>
-								</li>	
+									
 							</ul>
 
 							<div class="form_below">
 								<div class="frm_left" style="margin-left:20px;">
-									<input type="submit" value="Submit" class="up_save_btn" />
+									<input type="submit" value="Create Ticket" class="up_save_btn" />
 								</div>
 							</div>
 						</div>
@@ -59,14 +53,42 @@
 			</div>
 		</div>
 	</div>	
+
+	<div class="col-md-12">
+		
+		<div class="col-md-8 col-md-offset-2">
+			<h3>Your Query Tickets:-</h3>
+			<?php $allTickets = $this->customer->getAllTickets($this->session->userdata('customer_user_id'));?>
+			<table class="table table-bordered">
+				<thead> 
+					<tr> 	 
+						<th>Ticket ID</th> 
+						<th>Subject</th>
+						<th>Status</th> 
+						<th>Created At</th> 
+					</tr> 
+				</thead> 
+				<tbody>
+					<?php foreach($allTickets as $ticket){ ?>
+					<tr>
+						<td><?php echo $ticket->id; ?></td>
+						<td><a href="querythread/<?php echo $ticket->id; ?>"><?php echo $ticket->subject; ?></a></td>
+						<td><?php echo $ticket->status; ?></td>
+						<td><?php echo $ticket->created_at; ?></td>
+					</tr>
+				    <?php } ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
 </section>
 <script type="text/javascript">
 	$('#createQuery').submit(function(event){
 		event.preventDefault();
 	}).validate({
 	    rules: {
-	     	subject: "required",
-	     	query: "required"
+	     	subject: "required"
 	    },
 	    submitHandler: function(form) {  
 	    	$.ajax({

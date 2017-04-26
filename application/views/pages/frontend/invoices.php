@@ -1,7 +1,7 @@
 <?php 
 	
-	if($this->session->has_userdata('type') == true){
-		if($this->session->userdata('type') == "customer"){
+	if($this->session->has_userdata('customer_type') == true){
+		if($this->session->userdata('customer_type') == "customer"){
 			
 		}
 		else{
@@ -27,7 +27,7 @@
 	<div class="row">
 		
 		<div class="col-xs-24">
-			<?php $allorders = $this->customer->getOrderByCustomer($this->session->userdata('user_id'));?>
+			<?php $allorders = $this->customer->getOrderByCustomer($this->session->userdata('customer_user_id'));?>
 			<table class="table table-bordered">
 				<thead> 
 					<tr> 	 

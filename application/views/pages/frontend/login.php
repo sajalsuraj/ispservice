@@ -1,7 +1,7 @@
 <?php 
 	
-	if($this->session->has_userdata('type') == true){
-		if($this->session->userdata('type') == "customer"){
+	if($this->session->has_userdata('customer_type') == true){
+		if($this->session->userdata('customer_type') == "customer"){
 			redirect('userprofile');
 		}
 	}

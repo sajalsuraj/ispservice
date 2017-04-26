@@ -29,8 +29,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         return $this->db->insert('customer',$data) ? true : false ;
       }
 
-      public function contactUs($data){
+      public function createTicket($data){ 
         return $this->db->insert('contact',$data) ? true : false ;
+      }
+
+      public function getAllTickets($id){
+        $this->db->select('*');
+        $this->db->from('contact');
+        $this->db->where('customer_id = "'.$id.'"');
+        $query = $this->db->get();
+        return $query->result();
       }
 
       public function updateCustomer($data,$customer_id){

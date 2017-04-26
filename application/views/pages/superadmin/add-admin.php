@@ -183,6 +183,10 @@
         					<td><input type="email" name="email_id" class="form-control"></td>
         				</tr>
         				<tr>
+        					<td>Password</td>
+        					<td><input type="password" name="password" class="form-control"></td>
+        				</tr>
+        				<tr>
         					<td>Company</td>
         					<td><input type="text" name="company" class="form-control"></td>
         				</tr>
@@ -307,6 +311,7 @@
                 	$('#editAdminForm input[name=first_name]').val(as.data.first_name);
                 	$('#editAdminForm input[name=last_name]').val(as.data.last_name);
                 	$('#editAdminForm input[name=email_id]').val(as.data.email_id);
+                	$('#editAdminForm input[name=password]').val(as.data.password);
                 	$('#editAdminForm input[name=company]').val(as.data.company);
                 	$('#editAdminForm input[name=mobile]').val(as.data.mobile);
                 	$('#editAdminForm textarea[name=address]').val(as.data.address);

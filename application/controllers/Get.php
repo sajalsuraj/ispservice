@@ -10,20 +10,20 @@ class Get extends CI_Controller{
     
     public function adminLogin(){ 
     	
-	     $data = $this->admin->login($_POST);
+	     $data = $this->admin->login($_POST);  
 	    
 	     if($data != NULL){
             if($data->status == "false"){
                 echo json_encode(['status' => "disabled", 'message' => 'Unsuccessful Login']);
             }
-            else if($data->status == "true"){
+            else if($data->status == "true"){ 
                 $newdata = array(
                     'name'  =>  $data->first_name." ".$data->last_name,
                     'user_id'     => $data->user_id,
                     'type' => $data->type 
                 );
 
-                $this->session->set_userdata($newdata); 
+                $this->session->set_userdata($newdata);  
 
                 echo json_encode(['status' => true, 'message' => 'Successful Login']);
             }
@@ -58,15 +58,15 @@ class Get extends CI_Controller{
         }
     }//end function
 
-    public function customerLogin(){
+    public function customerLogin(){ 
     	
 	     $data = $this->customer->login($_POST);
 	    
 	     if($data != NULL){
 	     	$newdata = array(
-			        'name'  =>  $data->first_name." ".$data->last_name,
-			        'user_id'     => $data->customer_id,
-			        'type' => $data->type
+			        'customer_name'  =>  $data->first_name." ".$data->last_name,
+			        'customer_user_id'     => $data->customer_id,
+			        'customer_type' => $data->type
 			);
 
 			$this->session->set_userdata($newdata);

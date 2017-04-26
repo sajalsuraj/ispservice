@@ -146,4 +146,13 @@ class Update extends CI_Controller{
 			echo json_encode(['status' => false, 'message' => "Not Updated"]);
 		}
     }
+
+    public function ticket(){
+    	if($this->message->changeStatus($_POST['id'], $_POST['status'])){  
+			echo json_encode(['status' => true, 'message' => "Ticket closed successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Error"]);
+		}
+    }
 }

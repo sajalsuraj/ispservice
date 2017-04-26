@@ -48,10 +48,12 @@
 			<table class="table table-bordered">
 				<thead> 
 					<tr> 	
+						<th>Ticket ID</th>
 						<th>Customer ID</th> 
 						<th>Customer Name</th>
 						<th>Subject</th>
-						<th>Query</th> 
+						<th>Status</th> 
+						<th>Created At</th>
 					</tr> 
 				</thead>
 				<tbody>
@@ -60,10 +62,12 @@
 
 							foreach ($allQueries['result'] as $query) { ?>
 								<tr>
+									<td><?php echo $query->id; ?></td>
 								 	<td><?php echo $query->customer_id; ?></td>
 								 	<td><?php echo $query->name; ?></td>
-								 	<td><?php echo $query->subject; ?></td>
-								 	<td><?php echo $query->query; ?></td>
+								 	<td><a href="querythread/<?php echo $query->id; ?>"><?php echo $query->subject; ?></a></td>
+								 	<td><?php echo $query->status; ?></td>
+								 	<td><?php echo $query->created_at; ?></td>
 								</tr>
 							<?php } ?>
 					<?php ?>

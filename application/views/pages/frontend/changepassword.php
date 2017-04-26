@@ -1,7 +1,7 @@
 <?php 
 	
-	if($this->session->has_userdata('type') == true){
-		if($this->session->userdata('type') == "customer"){
+	if($this->session->has_userdata('customer_type') == true){
+		if($this->session->userdata('customer_type') == "customer"){
 			
 		}
 		else{
@@ -76,7 +76,7 @@ $("#changePass").submit(function(event) {
         $.ajax({
         	url:'<?php echo base_url(); ?>get/checkCustomerpass',
         	type: 'POST',
-            data: {oldpass:$('input[name=old_pass]').val(), id:"<?php echo $this->session->userdata('user_id') ?>"},
+            data: {oldpass:$('input[name=old_pass]').val(), id:"<?php echo $this->session->userdata('customer_user_id') ?>"},
             dataType:'json',
             success:function(as){
             	if(as.data == "FALSE"){
@@ -86,7 +86,7 @@ $("#changePass").submit(function(event) {
             		$.ajax({
 			        	url:'<?php echo base_url(); ?>update/changepasswordCustomer',
 			        	type: 'POST',
-		                data: {pass:$('input[name=new_pass]').val(), id:"<?php echo $this->session->userdata('user_id') ?>"},
+		                data: {pass:$('input[name=new_pass]').val(), id:"<?php echo $this->session->userdata('customer_user_id') ?>"},
 		                dataType:'json',
 		                success:function(as){
 		                	if(as.status == true){

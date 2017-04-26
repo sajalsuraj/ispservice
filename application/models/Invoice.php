@@ -13,8 +13,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       public function getInvoiceByMonth($month, $status, $year){
         $this->db->select('*');
-            $query = $this->db->get_where('invoice', array('month' => $month, 'invoice_status' => $status, 'year' => $year))->result();
-        return $query;
+         $this->db->from('invoice as o, customer as c');
+        $this->db->where('o.circuit_id = c.customer_id and o.month="'.$month.'" and o.year="'.$year.'" and   o.invoice_status="'.$status.'"');
+        $query = $this->db->get();
+        return $query->result();
+            
       }
 
       public function changeStatus($month, $year){

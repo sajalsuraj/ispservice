@@ -41,7 +41,7 @@
 
 	<div class="col-md-12 heading">
 		<h3>ABC iService Invoices</h3>
-	</div>
+	</div> 
 
 	<div class="col-md-12">
 		<div class="col-md-12 custList">
@@ -118,7 +118,7 @@
 					if(as.status == true){
 						option = "";
 						for(var i = 0; i < as.data.length;i++){
-							option += '<option value="'+as.data[i].order_no+'">'+as.data[i].order_no+'</option>';
+							option += '<option value="'+as.data[i].order_no+'">'+as.data[i].customer_id+'-'+as.data[i].first_name+'</option>';
 						}
 						$('select').html(option);
 					}

@@ -136,16 +136,27 @@ class Add extends CI_Controller{
 
     public function createQuery(){
 
-        $_POST['customer_id'] = $this->session->userdata('user_id');
-        $_POST['name'] = $this->session->userdata('name'); 
+        $_POST['customer_id'] = $this->session->userdata('customer_user_id');
+        $_POST['name'] = $this->session->userdata('customer_name'); 
 
-        $data = $this->customer->contactUs($_POST);
+        $data = $this->customer->createTicket($_POST);
       
          if($data){
-            echo json_encode(['status' => true, 'message' => 'Query created']);
+            echo json_encode(['status' => true, 'message' => 'Ticket created']);
          }
          else{
-            echo json_encode(['status' => false, 'message' => 'Query not created']);
+            echo json_encode(['status' => false, 'message' => 'Ticket not created']);
+         }
+    }
+
+    public function createMessage(){
+        $data = $this->message->createMessage($_POST);
+      
+         if($data){
+            echo json_encode(['status' => true]);
+         }
+         else{
+            echo json_encode(['status' => false]);
          }
     }
 

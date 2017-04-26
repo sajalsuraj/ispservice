@@ -1,7 +1,7 @@
 <?php 
 	
-	if($this->session->has_userdata('type') == true){
-		if($this->session->userdata('type') == "customer"){
+	if($this->session->has_userdata('customer_type') == true){
+		if($this->session->userdata('customer_type') == "customer"){
 			
 		}
 		else{
@@ -14,7 +14,7 @@
 
 ?>
 <?php 
-	$customerDetails = $this->customer->getCustomerById($this->session->userdata('user_id'));
+	$customerDetails = $this->customer->getCustomerById($this->session->userdata('customer_user_id'));
 ?>
 <section id="main_mid_sec">
 	<div class="mig_logsec">
@@ -91,7 +91,7 @@
 					<li>
 						<div class="form-group">
                              <label for="exampleInputEmail1">User Id</label>
-                             <input class="validate form-control" type="text" name="customer_id" readonly="" value="<?php echo $this->session->userdata('user_id'); ?>">
+                             <input class="validate form-control" type="text" name="customer_id" readonly="" value="<?php echo $this->session->userdata('customer_user_id'); ?>">
                         </div>
 					</li>
 					<li>
@@ -139,7 +139,7 @@ $("#editCustomerForm").submit(function(event) {
     submitHandler: function(form) { 
     	
         $.ajax({
-        	url:'<?php echo base_url(); ?>update/customer?id=<?php echo $this->session->userdata('user_id'); ?>',
+        	url:'<?php echo base_url(); ?>update/customer?id=<?php echo $this->session->userdata('customer_user_id'); ?>',
         	type: 'POST',
             data: new FormData( form ),
 	        processData: false,
