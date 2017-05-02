@@ -68,7 +68,7 @@ $("#changePass").submit(function(event) {
         re_pass : {
             minlength : 5,
             required:true,
-            equalTo : "#newpass"
+            equalTo : "#newpass" 
         }
     },
     submitHandler: function(form) {   

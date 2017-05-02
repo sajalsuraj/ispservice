@@ -12,7 +12,7 @@ class Update extends CI_Controller{
     		
 
     	   if(!empty($_FILES["kyc_form"]["name"])){
-	    	  if(isset($_FILES["kyc_form"]["name"])) {
+	    	  if(isset($_FILES["kyc_form"]["name"])) { 
 		        $_POST['kyc_form'] = $_FILES["kyc_form"]["name"];
 		        $folder='./assets/kyc/';
 		        $target_file_img = $folder. basename($_FILES["kyc_form"]["name"]);
@@ -57,6 +57,17 @@ class Update extends CI_Controller{
 
     public function admin(){
 
+    	 /*var_dump($_POST['tempPass']);
+    	 var_dump($_POST['password']);*/
+    	 if($_POST['tempPass'] == $_POST['password']){
+    	 	unset($_POST['password']);
+    	 	unset($_POST['tempPass']);
+    	 }
+    	 else if($_POST['tempPass'] != $_POST['password']){
+    	 	unset($_POST['tempPass']);
+    	 	$_POST['password'] = md5($_POST['password']);
+    	 }
+    	 
     	 if(!empty($_FILES["profile_pic"]["name"])){
 		      if (isset($_FILES["profile_pic"]["name"])) {
 		        $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
@@ -84,8 +95,8 @@ class Update extends CI_Controller{
 		}
     }
 
-    public function changepasswordSuperadmin(){
-    	if($this->admin->changepassword($_POST['pass'], $_POST['id'])){  
+    public function changepasswordSuperadmin(){  
+    	if($this->admin->changepassword(md5($_POST['pass']), $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Password updated successfully"]);
 		}
 		else{
@@ -94,7 +105,7 @@ class Update extends CI_Controller{
     }
 
     public function changepasswordCustomer(){
-    	if($this->customer->changepassword($_POST['pass'], $_POST['id'])){  
+    	if($this->customer->changepassword(md5($_POST['pass']), $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Password updated successfully"]);
 		}
 		else{

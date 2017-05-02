@@ -24,20 +24,20 @@
 <div class="container-fluid">
 	<div class="col-md-12 menubar"> 
 		<?php if($this->session->userdata('type') == "superadmin"){ ?>
-		<div class="menu fleft"><a href="home">Home</a></div>
+		<div class="menu fleft"><a href="<?php echo base_url(); ?>admin/home">Home</a></div>
 		<div class="menu fleft btn-group">
 			<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
 			<ul class="dropdown-menu">
-			    <li><a href="orderlist">Order List</a></li>
-			    <li><a href="invoiceorderlist">Customer Invoice List</a></li>
-			    <li><a href="customerlist">Customer List</a></li>
-			    <li><a href="dataplan">Data Plan</a></li>
-			    <li><a href="banner">HomePage Banner</a></li> 
-			    <li><a href="add-event">Manage Events</a></li>  
+			    <li><a href="<?php echo base_url(); ?>admin/orderlist">Order List</a></li>
+			    <li><a href="<?php echo base_url(); ?>admin/invoiceorderlist">Customer Invoice List</a></li>
+			    <li><a href="<?php echo base_url(); ?>admin/customerlist">Customer List</a></li>
+			    <li><a href="<?php echo base_url(); ?>admin/dataplan">Data Plan</a></li>
+			    <li><a href="<?php echo base_url(); ?>admin/banner">HomePage Banner</a></li> 
+			    <li><a href="<?php echo base_url(); ?>admin/add-event">Manage Events</a></li>  
 			</ul>
 		</div>
 		<?php } ?>
-		<div class="menu fleft"><a href="changepassword">Password Change</a></div>
+		<div class="menu fleft"><a href="<?php echo base_url(); ?>admin/changepassword">Password Change</a></div>
 		<?php if($this->session->userdata('type') == "superadmin"){ ?>
 		<div class="menu fleft btn-group">
 			<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
@@ -45,7 +45,7 @@
 			    <li><a href="<?php echo base_url(); ?>admin/queries">Queries</a></li>
 			</ul>
 		</div>
-		<div class="menu fleft"><a href="add-admin">Create Sub-Admin</a></div>
+		<div class="menu fleft"><a href="<?php echo base_url(); ?>admin/add-admin">Create Sub-Admin</a></div>
 		<?php } ?>
 		<div class="menu fleft"><a href="<?php echo base_url(); ?>user/logout">Logout</a></div>
 	</div>
@@ -74,7 +74,7 @@
 				
 				<div class="fleft msg-upper msg-style"><?php echo $message->message; ?></div>
 				<?php } else if($message->sender_type == "admin"){ ?>
-					<img class="user-img fleft" src="<?php echo base_url(); ?>assets/images/<?php echo $message->profile_pic; ?>">
+					<img class="user-img fleft" src="<?php echo base_url(); ?>assets/images/avatar.png">
 					<div class="fleft msg-upper">
 						<span class="fleft user-name-query">Admin</span>
 						<span class="pull-right msg-date-time"><?php echo $message->created_at; ?></span>

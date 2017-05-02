@@ -8,7 +8,9 @@ class Get extends CI_Controller{
     } 
 
     
-    public function adminLogin(){ 
+    public function adminLogin(){  
+
+         $_POST['password'] = md5($_POST['password']);
     	
 	     $data = $this->admin->login($_POST);  
 	    
@@ -23,7 +25,7 @@ class Get extends CI_Controller{
                     'type' => $data->type 
                 );
 
-                $this->session->set_userdata($newdata);  
+                $this->session->set_userdata($newdata);   
 
                 echo json_encode(['status' => true, 'message' => 'Successful Login']);
             }
@@ -60,6 +62,7 @@ class Get extends CI_Controller{
 
     public function customerLogin(){ 
     	
+         $_POST['password'] = md5($_POST['password']);
 	     $data = $this->customer->login($_POST);
 	    
 	     if($data != NULL){
@@ -99,18 +102,38 @@ class Get extends CI_Controller{
     }
 
     public function checkSuperadminpass(){
-    	$data = $this->superadmin->checkPassword($_POST['oldpass']);
+    	$data = $this->admin->checkPassword(md5($_POST['oldpass'])); 
     	echo json_encode(['data' => $data]);
     }
 
     public function checkCustomerpass(){
-    	$data = $this->customer->checkPassword($_POST['oldpass'], $_POST['id']);
+    	$data = $this->customer->checkPassword(md5($_POST['oldpass']), $_POST['id']);
     	echo json_encode(['data' => $data]);
     }
 
     public function recoverpassword(){
 
         $data = $this->customer->getCustomerByEmail($_POST['email']);
+
+        if($data == NULL){
+            echo json_encode(['status'=> false, 'data' => "Email ID doesn't exist!"]); 
+        } 
+        else{
+            $msg = "Greetings from ISP Service. Your password is ".$data->password;
+
+            // use wordwrap() if lines are longer than 70 characters
+            $msg = wordwrap($msg,70);
+
+            $headers = "From: sajal.suraj@suved.co". "\r\n" .
+                        'X-Mailer: PHP/' . phpversion();
+            // send email
+            mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+        }
+    }
+
+    public function recoveradminpassword(){
+
+        $data = $this->admin->getAdminByEmail($_POST['email_id']);
 
         if($data == NULL){
             echo json_encode(['status'=> false, 'data' => "Email ID doesn't exist!"]); 

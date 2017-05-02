@@ -11,8 +11,9 @@ class Add extends CI_Controller{
     public function addCustomer(){ 
 
       
-      $_POST['password'] = rand(00000000,99999999);
-      $_POST['customer_id'] = rand(00000000,99999999);
+      $password = rand(00000000,99999999);
+      $_POST['password'] = md5($password);
+      $_POST['customer_id'] = rand(00000000,99999999); 
       $_POST['status'] = "Active";
       $_POST['doj'] = date('Y-m-d');
       if (isset($_FILES["kyc_form"]["name"])) {
@@ -111,6 +112,18 @@ class Add extends CI_Controller{
          }
     }
 
+    public function createContactquery(){
+
+        $data = $this->customer->createContactMessage($_POST);
+      
+         if($data){
+            echo json_encode(['status' => true, 'message' => 'Thanks, We will be back to you shortly !!']);
+         }
+         else{
+            echo json_encode(['status' => false, 'message' => 'Message not sent']);
+         }
+    }
+
     public function addAdmin(){
 
         if (isset($_FILES["profile_pic"]["name"])) {
@@ -120,7 +133,8 @@ class Add extends CI_Controller{
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
         }
 
-         $_POST['status'] = "true";
+         $_POST['status'] = "true"; 
+         $_POST['password'] = md5($_POST['password']);
          $_POST['user_id'] = rand(00000000,99999999);
 
          $data = $this->admin->addAdmin($_POST);
@@ -138,6 +152,7 @@ class Add extends CI_Controller{
 
         $_POST['customer_id'] = $this->session->userdata('customer_user_id');
         $_POST['name'] = $this->session->userdata('customer_name'); 
+        $_POST['status'] = "Open"; 
 
         $data = $this->customer->createTicket($_POST);
       

@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       public function getListforExcel(){
         $query = $this->db->get('customer');
         return $query->result_array();
-      }
+      } 
  
       public function login($data){
         $this->db->select('first_name,last_name,customer_id, type');
@@ -27,6 +27,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       public function createCustomer($data){ 
         return $this->db->insert('customer',$data) ? true : false ;
+      }
+
+      public function createContactMessage($data){ 
+        return $this->db->insert('contactus',$data) ? true : false ;
       }
 
       public function createTicket($data){ 
@@ -114,6 +118,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           $this->db->update('customer', $data);
           return true;
       }
+
+
   }
 
 ?>

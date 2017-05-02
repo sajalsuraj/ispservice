@@ -52,6 +52,7 @@
 						<th>Customer ID</th> 
 						<th>Customer Name</th>
 						<th>Subject</th>
+						<th>Description</th>
 						<th>Status</th> 
 						<th>Created At</th>
 					</tr> 
@@ -66,6 +67,7 @@
 								 	<td><?php echo $query->customer_id; ?></td>
 								 	<td><?php echo $query->name; ?></td>
 								 	<td><a href="querythread/<?php echo $query->id; ?>"><?php echo $query->subject; ?></a></td>
+								 	<td><?php echo $query->description; ?></td>
 								 	<td><?php echo $query->status; ?></td>
 								 	<td><?php echo $query->created_at; ?></td>
 								</tr>

@@ -25,6 +25,12 @@ class Admin extends CI_Model{
         return $this->db->insert('event',$data) ? true : false ;
     }
 
+    public function getAdminByEmail($email){
+        $this->db->select('*');
+            $query = $this->db->get_where('users', array('email_id' => $email))->row();
+        return $query;
+    }
+
     public function getAllBanners(){
         $query = $this->db->get('banner');
         $data['result'] = $query->result();

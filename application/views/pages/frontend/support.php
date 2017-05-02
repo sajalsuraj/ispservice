@@ -39,6 +39,12 @@
 			                             <input class="validate form-control" type="text" name="subject" />
 			                        </div>
 								</li>
+								<li>
+									<div class="form-group">
+			                             <label for="exampleInputEmail1">Problem Statement</label>
+			                             <textarea class="validate form-control" name="description"></textarea>
+			                        </div>
+								</li>
 									
 							</ul>
 
@@ -64,6 +70,7 @@
 					<tr> 	 
 						<th>Ticket ID</th> 
 						<th>Subject</th>
+						<th>Description</th>
 						<th>Status</th> 
 						<th>Created At</th> 
 					</tr> 
@@ -73,6 +80,7 @@
 					<tr>
 						<td><?php echo $ticket->id; ?></td>
 						<td><a href="querythread/<?php echo $ticket->id; ?>"><?php echo $ticket->subject; ?></a></td>
+						<td><?php echo $ticket->description; ?></td>
 						<td><?php echo $ticket->status; ?></td>
 						<td><?php echo $ticket->created_at; ?></td>
 					</tr>
@@ -94,7 +102,7 @@
 	    	$.ajax({
 	    		url:'<?php echo base_url(); ?>add/createQuery',
 	    		type:'POST',
-	    		data: {subject:$('input[name=subject]').val(), query:$('textarea[name=query]').val()},
+	    		data: {subject:$('input[name=subject]').val(), description:$('textarea[name=description]').val()},
 	    		dataType: 'json',
 	    		success:function(as){
 	    			if(as.status == true){

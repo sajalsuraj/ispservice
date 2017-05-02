@@ -13,6 +13,6 @@
 	</head>
 	<body>
 		<div class="col-md-12 header">
-			<div class="fleft"><h3>ABC iService</h3></div>
+			<div class="fleft"><h3><a style="text-decoration:none;" href="<?php echo base_url(); ?>admin/login">ABC iService</a></h3></div>
 			<div class="fright user"><h4>Welcome <span>Sajal</span></h4></div>
 		</div>

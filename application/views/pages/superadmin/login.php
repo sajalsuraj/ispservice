@@ -12,7 +12,7 @@
 		<div class="col-md-4 col-md-offset-4 login-form">
 			<form id="superAdminLogin">
 				<div class="form-group">
-					<label>Email ID:</label>
+					<label>Email ID:</label> 
 					<input type="text" name="email_id" class="form-control">
 				</div>
 				<div class="form-group">
@@ -21,10 +21,10 @@
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-login">Login</button>
-					<div><a href="">Forgot Password ?</a></div>
+					<div><a href="recoverpassword">Forgot Password ?</a></div> 
 				</div>
 			</form>
-		</div>
+		</div>  
 	</div>
 </div>
 <script type="text/javascript">

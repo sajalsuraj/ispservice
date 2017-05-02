@@ -43,7 +43,7 @@
 			
 			<div class="fleft msg-upper msg-style"><?php echo $message->message; ?></div>
 			<?php } else if($message->sender_type == "admin"){ ?>
-				<img class="user-img fleft" src="<?php echo base_url(); ?>assets/images/<?php echo $message->profile_pic; ?>">
+				<img class="user-img fleft" src="<?php echo base_url(); ?>assets/images/avatar.png">
 				<div class="fleft msg-upper">
 					<span class="fleft user-name-query">Admin</span>
 					<span class="pull-right msg-date-time"><?php echo $message->created_at; ?></span>

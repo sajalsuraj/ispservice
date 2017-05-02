@@ -17,7 +17,7 @@
 	
 	<div class="row">
 		<div class="col-lg-24">
-			<form>
+			<form id="contactForm"> 
 				
 				
 			<div class="up_info">
@@ -25,33 +25,33 @@
 					<li>
 						<div class="form-group">
                              <label for="exampleInputEmail1">Name</label>
-                             <input class="validate form-control" type="text" name=""  value="">
+                             <input class="validate form-control" type="text" name="name" />
                         </div>
 					</li>
 					
 					<li>
 						<div class="form-group">
                              <label for="exampleInputEmail1">Email</label>
-                             <input class="validate form-control" type="text" name=""  value="">
+                             <input class="validate form-control" type="email" name="email" />
                         </div>
 					</li>
 					<li>
 						<div class="form-group">
                              <label for="exampleInputEmail1">Contact No.</label>
-                             <input class="validate form-control" type="text" name=""  value="">
+                             <input class="validate form-control" type="number" name="phone" />
                         </div>
 					</li>
 					<li>
 						<div class="form-group">
                              <label for="exampleInputEmail1">City</label>
-                             <input class="validate form-control" type="text" name=""  value="">
+                             <input class="validate form-control" type="text" name="city" />
                         </div>
 					</li>
 					
 					<li>
 						<div class="form-group con_area">
                              <label for="exampleInputEmail1">Your Query </label>
-                              <textarea class="con_area validate form-control" name="" id="message"></textarea>
+                              <textarea class="con_area validate form-control" name="message"></textarea>
                         </div>
 					</li>
 					
@@ -65,7 +65,7 @@
 					
 					<div class="frm_left" style="margin-left:20px;">
 						
-						<input type="submit" name="sub" value="Submit" class="up_save_btn" />
+						<input type="submit" value="Submit" class="up_save_btn" />
 					</div>
 				</div>
 			
@@ -76,16 +76,7 @@
 			
 			</form>
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 			<div class="chat_option">
 					
@@ -144,3 +135,30 @@
 </div>
 	
 </section>
+<script type="text/javascript">
+	$('#contactForm').submit(function(event){
+		event.preventDefault();
+	}).validate({
+	    rules: {
+	    	name: "required",
+	    	email: "required",
+	    	phone: "required",
+	    	city: "required",
+	     	message: "required"
+	    },
+	    submitHandler: function(form) {  
+	    	$.ajax({
+	    		url:'<?php echo base_url(); ?>add/createContactquery',
+	    		type:'POST',
+	    		data: $("#contactForm").serialize(),
+	    		dataType: 'json',
+	    		success:function(as){
+	    			if(as.status == true){
+	    				alert(as.message);
+	    				location.reload();
+	    			}
+	    		}
+	    	});
+	    }
+	});
+</script>

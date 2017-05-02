@@ -15,7 +15,7 @@
 	}
 ?>
 <div class="container-fluid">
-	<div class="col-md-12 menubar"> 
+	<div class="col-md-12 menubar">  
 		<?php if($this->session->userdata('type') == "superadmin"){ ?>
 		<div class="menu fleft"><a href="home">Home</a></div>
 		<div class="menu fleft btn-group">

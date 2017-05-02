@@ -27,7 +27,7 @@
 			    <li><a href="dataplan">Data Plan</a></li>
 			    <li><a href="banner">HomePage Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li>  
-			</ul>
+			</ul> 
 		</div>
 		<?php } ?>
 		<div class="menu fleft"><a href="changepassword">Password Change</a></div>
@@ -97,7 +97,7 @@
 				<div class="form-group">
 					<label>Admin Type</label>
 					<select class="form-control" name="type">
-						<option value="superadmin" selected>Superadmin</option>
+						<option value="superadmin" selected>Superadmin</option> 
 						<option value="subadmin">Subadmin</option>
 					</select>
 				</div>
@@ -184,7 +184,7 @@
         				</tr>
         				<tr>
         					<td>Password</td>
-        					<td><input type="password" name="password" class="form-control"></td>
+        					<td><input type="hidden" name="tempPass"><input type="password" name="password" class="form-control"></td>
         				</tr>
         				<tr>
         					<td>Company</td>
@@ -312,6 +312,7 @@
                 	$('#editAdminForm input[name=last_name]').val(as.data.last_name);
                 	$('#editAdminForm input[name=email_id]').val(as.data.email_id);
                 	$('#editAdminForm input[name=password]').val(as.data.password);
+                	$('#editAdminForm input[name=tempPass]').val(as.data.password); 
                 	$('#editAdminForm input[name=company]').val(as.data.company);
                 	$('#editAdminForm input[name=mobile]').val(as.data.mobile);
                 	$('#editAdminForm textarea[name=address]').val(as.data.address);
