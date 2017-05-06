@@ -12,7 +12,7 @@
 	}
 	else{
 		redirect('admin/login');
-	}
+	} 
 ?>
 <div class="container-fluid">
 	<div class="col-md-12 menubar"> 
@@ -93,11 +93,11 @@
                 success:function(as){
                 	console.log(as);
                 	if(as.status == true){
-                		alert("Data Plan added");
+                		alert(as.message);
                 		location.reload();
                 	}
                     else if(as.status == false){
-                    	alert("Data Plan Not added");
+                    	alert(as.message);
                     }
                 }
 	        });

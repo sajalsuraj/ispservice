@@ -11,7 +11,7 @@
 		}
 	}
 	else{
-		redirect('admin/login'); 
+		redirect('admin/login');  
 	}
 ?>
 <div class="container-fluid">
@@ -158,7 +158,9 @@
 		}).validate({
 		    rules: {
 		     	plan_name: "required",
-		     	price: "required"
+		     	price: "required",
+		     	validity: "required",
+	     		speed: "required"
 		    },
 		    submitHandler: function(form) { 
 		    	
@@ -174,9 +176,9 @@
 	                		alert(as.message);
 	                		location.reload();
 	                	}
-	                	else{
-	                		alert("Error while updating");
-	                	}
+	                    else if(as.status == false){
+	                    	alert(as.message);
+	                    }
 	                }
 		        });
 		    }

@@ -3115,7 +3115,7 @@ class TCPDF {
 		// start new page
 		$this->startPage($orientation, $format, $tocpage);
 	}
-
+ 
 	/**
 	 * Terminate the current page
 	 * @param $tocpage (boolean) if true set the tocpage state to false (end the page used to display Table Of Content).

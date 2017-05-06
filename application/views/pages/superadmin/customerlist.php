@@ -111,6 +111,14 @@
 	        					<td><input type="text" name="last_name" class="form-control"></td>
 	        				</tr>
 	        				<tr>
+	        					<td>Father's Name</td>
+	        					<td><input type="text" name="father_name" class="form-control"></td>
+	        				</tr>
+	        				<tr>
+	        					<td>Date Of Birth</td>
+	        					<td><input type="text" name="dob" readonly="" class="form-control"></td>
+	        				</tr>
+	        				<tr>
 	        					<td>Address</td>
 	        					<td><input type="text" name="address" class="form-control"></td>
 	        				</tr>
@@ -216,6 +224,10 @@
 	        						</select>
 	        					</td>
 	        				</tr>
+	        				<tr>
+	        					<td>Aadhar ID</td>
+	        					<td><input type="text" name="aadhar_no" class="form-control"></td>
+	        				</tr>
 	        			</tbody>
 	        		</table>
 	        		<div>
@@ -236,6 +248,10 @@
 
 	<script>
 
+		$('input[name=dob]').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+
 		var id = "";
 		$('.custEdit').click(function(){
 			id = $(this).attr('id');
@@ -249,6 +265,8 @@
 					console.log(as.data.connectivity_type);
 					$('input[name=first_name]').val(as.data.first_name);
 					$('input[name=last_name]').val(as.data.last_name);
+					$('input[name=father_name]').val(as.data.father_name);
+					$('input[name=dob]').val(as.data.dob);
 					$('input[name=address]').val(as.data.address);
 					$('input[name=city]').val(as.data.city);
 					$('input[name=pincode]').val(as.data.pincode);
@@ -264,6 +282,7 @@
 					$('input[name=eq_mac]').val(as.data.eq_mac);
 					$('input[name=eq_manufacture]').val(as.data.eq_manufacture);
 					$('select[name=status]').val(as.data.status);
+					$('input[name=aadhar_no]').val(as.data.aadhar_no);
 					if(as.data.kyc_form != ""){
 						$('#kyc').attr('href', '<?php echo base_url()."assets/kyc/" ?>'+as.data.kyc_form);
 						$('#kyc').html('View');
@@ -309,7 +328,17 @@
 		}).validate({
 		    rules: {
 		     	first_name: "required",
-		     	last_name: "required"
+		     	last_name: "required",
+		     	father_name: "required",
+		     	address: "required",
+		     	city: "required",
+		     	state: "required",
+		     	pincode: "required",
+		     	aadhar_no: {
+		     		required: true,
+		     		minlength: 16,
+		     		maxlength: 16
+		     	}
 		    },
 		    submitHandler: function(form) { 
 		    	
@@ -322,12 +351,12 @@
 	                dataType:'json',
 	                success:function(as){
 	                	if(as.status == true){
-	                		alert("Profile Successfully updated");
+	                		alert(as.message);
 	                		location.reload();
 	                	}
-	                	else{
-	                		alert("Error while updating");
-	                	}
+	                    else if(as.status == false){
+	                    	alert(as.message);
+	                    }
 	                }
 		        });
 		    }

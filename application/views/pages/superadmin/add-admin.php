@@ -23,7 +23,7 @@
 			<ul class="dropdown-menu">
 			    <li><a href="orderlist">Order List</a></li>
 			    <li><a href="invoiceorderlist">Customer Invoice List</a></li>
-			    <li><a href="customerlist">Customer List</a></li>
+			    <li><a href="customerlist">Customer List</a></li> 
 			    <li><a href="dataplan">Data Plan</a></li>
 			    <li><a href="banner">HomePage Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li>  
@@ -243,7 +243,9 @@
 	    event.preventDefault();
 	}).validate({
 	    rules: {
-	     name:"required",
+	     first_name:"required",
+	     last_name:"required",
+	     password: "required",
 	     email_id:"required"
 	    },
 	    submitHandler: function(form) { 
@@ -341,8 +343,10 @@
 	    event.preventDefault();
 	}).validate({
 	    rules: {
-	     	first_name: "required",
-	     	last_name: "required"
+	     	 first_name:"required",
+		     last_name:"required",
+		     password: "required",
+		     email_id:"required"
 	    },
 	    submitHandler: function(form) { 
 	    	

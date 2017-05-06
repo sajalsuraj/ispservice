@@ -15,7 +15,7 @@ class Mainctrl extends CI_Controller {
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
+	 * map to /index.php/welcome/<method_name> 
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	function __construct()
@@ -159,6 +159,9 @@ class Mainctrl extends CI_Controller {
             <tr>
                 <td>'.$data->first_name.' '.$data->last_name.'<br>'.$data->address.'</td>
                 <td>Invoice No. : '.$data->invoice_no.'<br>Order No. : '.$data->order_no.'<br>Circuit ID : '.$data->circuit_id.'</td>
+                <td><img src = "'.base_url().'assets/images/'.$data->profile_pic.'" style="width:100px;height:100px;" /></td>
+            </tr>
+            <tr>
                 <td>Invoice Date - 01/04/2017<br>Due Date - 10/04/2017</td>
             </tr>
        </tbody>
@@ -171,6 +174,9 @@ class Mainctrl extends CI_Controller {
             <tr>
                 <td>'.$data->first_name.' '.$data->last_name.'<br>'.$data->address.'</td>
                 <td>Invoice No. : '.$data->invoice_no.'<br>Circuit ID : '.$data->circuit_id.'</td>
+                <td style="text-align:right;"><img src = "'.base_url().'assets/images/'.$data->profile_pic.'" style="width:100px;height:100px;" /></td>
+            </tr>
+            <tr>
                 <td>Invoice Date - 01/04/2017<br>Due Date - 10/04/2017</td>
             </tr>
        </tbody>
@@ -231,8 +237,8 @@ class Mainctrl extends CI_Controller {
             </tr>
         </tbody>
     </table>
-    <p>Amount payable in words<br><b>Rupees Seven Thousand Five Hundred And Forty Two Only</b></p>
-    <p>Please draw Cheque/Demand Draft in favour of "AuthorStream Pvt. Ltd." and mail to<br><b>Author Stream Pvt. Ltd.,C-153, Okhla Phase - 1, New Delhi - 110020<br>Tel:91-11-43792000 Fax:91-11-43792090, Email ID:billing@authorstream.in </b></p>
+    <p>Amount payable in words <b>Rupees Seven Thousand Five Hundred And Forty Two Only</b></p>
+    <p>Please draw Cheque/Demand Draft in favour of "AuthorStream Pvt. Ltd." and mail to<br><b>Author Stream Pvt. Ltd.,C-153, Okhla Phase - 1, New Delhi - 110020</b></p>
     <p>Service Tax No : AAACW2726NST001</p>
     <p>PAN No : AAACW2726N</p>
     <p>CIN : U74899DL2000PTC104421</p>
@@ -240,20 +246,18 @@ class Mainctrl extends CI_Controller {
         <tbody>
             <tr>
                 <td></td>
-                <td style="text-align:right;">For AuthorStream Pvt. Ltd.</td>
+                <td style="text-align:right;">For AC Network Kanina</td>
             </tr>
             <tr>
                 <td></td>
-                <td style="text-align:right;"><img style="width:100px;height:100px;" src="'.base_url().'assets/images/sign.JPG" /><br>Authorised Signatory</td>
+                <td style="text-align:right;"><img src="'.base_url().'assets/images/sign.png" /><br>Signature</td>
             </tr>
         </tbody>
     </table>
     <p>Conditions:</p>
     <p>1. All disputes are subject to Delhi Jurisdiction.<br><br>2.Interest @ 18% p.a will be charged if the payment is not made within the due date.<br><br>3.If the customer does not notify any discrepancies within 15 days from the date of invoice, it will be taken as
 he/she found the statement correct.</p>
-    <br>
-    <br>
-    <p style="font-size:9px;text-align:center;"><b>AuthorStream Services Pvt. Ltd. C-153, Okhla Phase - 1 New Delhi - 110020 Tel:91-11-43792000 Fax:91-11-43792090</b></p>
+    
     ';
   
     // Print text using writeHTMLCell()

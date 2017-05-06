@@ -13,7 +13,7 @@ class Update extends CI_Controller{
 
     	   if(!empty($_FILES["kyc_form"]["name"])){
 	    	  if(isset($_FILES["kyc_form"]["name"])) { 
-		        $_POST['kyc_form'] = $_FILES["kyc_form"]["name"];
+		        $_POST['kyc_form'] = $_FILES["kyc_form"]["name"]; 
 		        $folder='./assets/kyc/';
 		        $target_file_img = $folder. basename($_FILES["kyc_form"]["name"]);
 		        move_uploaded_file($_FILES["kyc_form"]["tmp_name"], $target_file_img);
@@ -46,13 +46,34 @@ class Update extends CI_Controller{
 		        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
 		      }
 		    }
-	      
-		if($this->customer->updateCustomer($_POST, $_GET['id'])){
-			echo json_encode(['status' => true, 'message' => "Profile updated successfully"]);
-		}
-		else{
-			echo json_encode(['status' => false, 'message' => "Not Updated"]);
-		}
+	    
+
+	    if(empty($_POST['first_name'])){
+	        echo json_encode(['status' => false, 'message' => 'first name is empty']);
+	    }
+	    else if(empty($_POST['last_name'])){
+	        echo json_encode(['status' => false, 'message' => 'last name is empty']);
+	    }
+	    else if(empty($_POST['father_name'])){
+	        echo json_encode(['status' => false, 'message' => 'father name is empty']);
+	    }
+	    else if(empty($_POST['address'])){
+	        echo json_encode(['status' => false, 'message' => 'address is empty']);
+	    }
+	    else if(empty($_POST['city'])){
+	        echo json_encode(['status' => false, 'message' => 'city is empty']);
+	    }
+	    else if(empty($_POST['aadhar_no'])){
+	        echo json_encode(['status' => false, 'message' => 'Aadhar no cannot be empty']);
+	    }
+	    else{
+	    	if($this->customer->updateCustomer($_POST, $_GET['id'])){
+				echo json_encode(['status' => true, 'message' => "Profile updated successfully"]);
+			}
+			else{
+				echo json_encode(['status' => false, 'message' => "Not Updated"]);
+			}
+	    }
     }
 
     public function admin(){
@@ -87,12 +108,29 @@ class Update extends CI_Controller{
     }
 
     public function dataplan(){
-    	if($this->dataplan->updateDataPlan($_POST, $_GET['id'])){  
-			echo json_encode(['status' => true, 'message' => "Data plan updated successfully"]);
-		}
-		else{
-			echo json_encode(['status' => false, 'message' => "Not Updated"]);
-		}
+
+
+    	if(empty($_POST['plan_name'])){
+	        echo json_encode(['status' => false, 'message' => 'Plan name is empty']);
+	    }
+	    else if(empty($_POST['price'])){
+	        echo json_encode(['status' => false, 'message' => 'Price is empty']);
+	    }
+	    else if(empty($_POST['validity'])){
+	        echo json_encode(['status' => false, 'message' => 'validity is empty']);
+	    }
+	    else if(empty($_POST['speed'])){
+	        echo json_encode(['status' => false, 'message' => 'Speed is empty']);
+	    }
+	    else{
+	    	if($this->dataplan->updateDataPlan($_POST, $_GET['id'])){  
+				echo json_encode(['status' => true, 'message' => "Data plan updated successfully"]);
+			}
+			else{
+				echo json_encode(['status' => false, 'message' => "Not Updated"]);
+			}
+	    }
+    	
     }
 
     public function changepasswordSuperadmin(){  

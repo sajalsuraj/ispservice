@@ -13,7 +13,7 @@ class Add extends CI_Controller{
       
       $password = rand(00000000,99999999);
       $_POST['password'] = md5($password);
-      $_POST['customer_id'] = rand(00000000,99999999); 
+      $_POST['customer_id'] = rand(00000000,99999999);  
       $_POST['status'] = "Active";
       $_POST['doj'] = date('Y-m-d');
       if (isset($_FILES["kyc_form"]["name"])) {
@@ -69,47 +69,84 @@ class Add extends CI_Controller{
         'customer_id' => $customer_id
 
       );*/
-     
-      if($this->customer->createCustomer($_POST)){
 
-         $data = array();
-         $plan = $this->dataplan->getPlanByName($_POST['data_plan']);
-         $data['invoice_no'] = "BC/".date('Y')."/".date('m')."/".rand(0000,9999);
-         $data['circuit_id'] = $_POST['customer_id'];
-         $date = date('Y-m-d');
-         $data['month'] = date('m');
-         $data['year'] = date('Y');
-         $data['next_payment_date'] = date('Y-m-d', strtotime('+1 month', strtotime($date)));
-         $data['invoice_date'] = date('Y-m-d', strtotime('-5 days', strtotime($data['next_payment_date'])));
-         $data['order_no'] = "ISP/".$data['invoice_date']."/".$_POST['customer_id']."/".rand(0000,9999);
-         $data['base_amount'] = $plan->price;
-         $data['service_tax'] = 0.14 * intval($data['base_amount']);
-         $data['sbc'] = 0.005 * intval($data['base_amount']);
-         $data['kkc'] = 0.005 * intval($data['base_amount']);
-         $data['total_amount'] = intval($data['base_amount']) + intval($data['service_tax']) + intval($data['sbc']) + intval($data['kkc']);
-         $data['payment_status'] = "Pending";
-         $data['invoice_status'] = "Deactive";
-
-         if($this->invoice->createInvoice($data)){
-            echo json_encode(['status' => true, 'message' => 'Customer added']);
-         }
+      if(empty($_POST['first_name'])){
+        echo json_encode(['status' => false, 'message' => 'first name is empty']);
+      }
+      else if(empty($_POST['last_name'])){
+        echo json_encode(['status' => false, 'message' => 'last name is empty']);
+      }
+      else if(empty($_POST['father_name'])){
+        echo json_encode(['status' => false, 'message' => 'father name is empty']);
+      }
+      else if(empty($_POST['address'])){
+        echo json_encode(['status' => false, 'message' => 'address is empty']);
+      }
+      else if(empty($_POST['city'])){
+        echo json_encode(['status' => false, 'message' => 'city is empty']);
+      }
+      else if(empty($_POST['aadhar_no'])){
+        echo json_encode(['status' => false, 'message' => 'Aadhar no cannot be empty']);
       }
       else{
-        echo json_encode(['status' => false, 'message' => 'Customer not added']);
+
+                if($this->customer->createCustomer($_POST)){
+
+                     $data = array();
+                     $plan = $this->dataplan->getPlanByName($_POST['data_plan']);
+                     $data['invoice_no'] = "BC/".date('Y')."/".date('m')."/".rand(0000,9999);
+                     $data['circuit_id'] = $_POST['customer_id'];
+                     $date = date('Y-m-d');
+                     $data['month'] = date('m');
+                     $data['year'] = date('Y');
+                     $data['next_payment_date'] = date('Y-m-d', strtotime('+1 month', strtotime($date)));
+                     $data['invoice_date'] = date('Y-m-d', strtotime('-5 days', strtotime($data['next_payment_date'])));
+                     $data['order_no'] = "ISP/".$data['invoice_date']."/".$_POST['customer_id']."/".rand(0000,9999);
+                     $data['base_amount'] = $plan->price;
+                     $data['service_tax'] = 0.14 * intval($data['base_amount']);
+                     $data['sbc'] = 0.005 * intval($data['base_amount']);
+                     $data['kkc'] = 0.005 * intval($data['base_amount']);
+                     $data['total_amount'] = intval($data['base_amount']) + intval($data['service_tax']) + intval($data['sbc']) + intval($data['kkc']);
+                     $data['payment_status'] = "Pending";
+                     $data['invoice_status'] = "Deactive";
+
+                     if($this->invoice->createInvoice($data)){
+                        echo json_encode(['status' => true, 'message' => 'Customer added']);
+                     }
+                }
+                else{
+                    echo json_encode(['status' => false, 'message' => 'Customer not added']);
+                }
+
       }
 
     }
 
     public function addDataPlan(){
 
-        $data = $this->dataplan->createDataPlan($_POST);
-      
-         if($data){
-            echo json_encode(['status' => true, 'message' => 'DataPlan added']);
-         }
-         else{
-            echo json_encode(['status' => false, 'message' => 'DataPlan not added']);
-         }
+          if(empty($_POST['plan_name'])){
+            echo json_encode(['status' => false, 'message' => 'Plan name is empty']);
+          }
+          else if(empty($_POST['price'])){
+            echo json_encode(['status' => false, 'message' => 'Price is empty']);
+          }
+          else if(empty($_POST['validity'])){
+            echo json_encode(['status' => false, 'message' => 'validity is empty']);
+          }
+          else if(empty($_POST['speed'])){
+            echo json_encode(['status' => false, 'message' => 'Speed is empty']);
+          }
+          else{
+            $data = $this->dataplan->createDataPlan($_POST);
+          
+             if($data){
+                echo json_encode(['status' => true, 'message' => 'DataPlan added']);
+             }
+             else{
+                echo json_encode(['status' => false, 'message' => 'DataPlan not added']);
+             }
+          }
+            
     }
 
     public function createContactquery(){
@@ -126,26 +163,41 @@ class Add extends CI_Controller{
 
     public function addAdmin(){
 
-        if (isset($_FILES["profile_pic"]["name"])) {
-            $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
-            $folder= './assets/images/';
-            $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
-        }
 
-         $_POST['status'] = "true"; 
-         $_POST['password'] = md5($_POST['password']);
-         $_POST['user_id'] = rand(00000000,99999999);
+          if(empty($_POST['first_name'])){
+            echo json_encode(['status' => false, 'message' => 'First name is empty']);
+          }
+          else if(empty($_POST['last_name'])){
+            echo json_encode(['status' => false, 'message' => 'Last name is empty']);
+          }
+          else if(empty($_POST['password'])){
+            echo json_encode(['status' => false, 'message' => 'Password is empty']);
+          }
+          else if(empty($_POST['email_id'])){
+            echo json_encode(['status' => false, 'message' => 'Email ID is empty']);
+          }
+          else{
+                if (isset($_FILES["profile_pic"]["name"])) {
+                    $_POST['profile_pic'] = $_FILES["profile_pic"][ "name" ];
+                    $folder= './assets/images/';
+                    $target_file_img = $folder. basename($_FILES["profile_pic"]["name"]);
+                    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file_img);
+                }
 
-         $data = $this->admin->addAdmin($_POST);
-      
-         
-         if($data){
-            echo json_encode(['status' => true, 'message' => 'User added']);
-         }
-         else{
-            echo json_encode(['status' => false, 'message' => 'User not added']);
-         }
+                 $_POST['status'] = "true"; 
+                 $_POST['password'] = md5($_POST['password']);
+                 $_POST['user_id'] = rand(00000000,99999999);
+
+                 $data = $this->admin->addAdmin($_POST);
+              
+                 
+                 if($data){
+                    echo json_encode(['status' => true, 'message' => 'User added']);
+                 }
+                 else{
+                    echo json_encode(['status' => false, 'message' => 'User not added']);
+                 }
+          }
     }
 
     public function createQuery(){

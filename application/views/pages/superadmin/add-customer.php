@@ -11,7 +11,7 @@
 		}
 	}
 	else{
-		redirect('admin/login');
+		redirect('admin/login'); 
 	}
 ?>
 <div class="container-fluid">
@@ -62,6 +62,14 @@
 					<div class="form-group">
 						<label>Last Name</label>
 						<input type="text" name="last_name" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Father's Name</label>
+						<input type="text" name="father_name" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Date Of Birth</label>
+						<input type="text" name="dob" readonly="" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Address</label>
@@ -115,7 +123,7 @@
 
 					<div class="form-group">
 						<label>Pincode</label>
-						<input type="number" name="pincode" class="form-control">
+						<input type="text" name="pincode" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Email ID</label>
@@ -140,6 +148,8 @@
 						<select class="form-control" name="ip_type">
 							<option value="DHCP">DHCP</option>
 							<option value="STATIC">STATIC</option>
+							<option value="DHCP">PPPOE</option>
+							<option value="STATIC">Local IP</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -216,6 +226,10 @@
 						<label>Address Proof</label>
 						<input type="file" name="address_proof" class="form-control">
 					</div>
+					<div class="form-group">
+						<label>Aadhar ID</label>
+						<input type="text" name="aadhar_no" class="form-control">
+					</div>
 
 				</div>
 				
@@ -228,7 +242,7 @@
 </div>
 
 <script type="text/javascript">
-	$('#billingdate').datepicker({
+	$('#billingdate, input[name=dob]').datepicker({
 		dateFormat: 'dd-mm-yy'
 	});
 
@@ -237,7 +251,17 @@
 	}).validate({
 	    rules: {
 	     	first_name: "required",
-	     	last_name: "required"
+	     	last_name: "required",
+	     	father_name: "required",
+	     	address: "required",
+	     	city: "required",
+	     	state: "required",
+	     	pincode: "required",
+	     	aadhar_no: {
+	     		required: true,
+	     		minlength: 16,
+	     		maxlength: 16
+	     	}
 	    },
 	    submitHandler: function(form) { 
 	    	
@@ -251,11 +275,11 @@
                 success:function(as){
                 	console.log(as);
                 	if(as.status == true){
-                		alert("Customer added");
+                		alert(as.message);
                 		location.reload();
                 	}
                     else if(as.status == false){
-                    	alert("Customer Not added");
+                    	alert(as.message);
                     }
                 }
 	        });
