@@ -7,22 +7,48 @@ class Admin extends CI_Model{
 	    parent::__construct();
 	}
 
+
 	public function login($data){
 		$this->db->select('first_name, last_name, user_id, type, status');
         $query = $this->db->get_where('users', array('email_id' => $data['email_id'], 'password' => $data['password']))->row();
 		return $query;
 	}
 
-	public function addAdmin($data){
+	public function addAdmin($data){  
 		return $this->db->insert('users',$data) ? true : false ;
 	}
+
+    public function updateHash($data, $id){
+        $this->db->where('user_id', $id);
+        return $this->db->update('users', $data) ? true : false;
+    }
 
     public function addBanner($data){
         return $this->db->insert('banner',$data) ? true : false ;
     }
 
+    public function checkExpirationTime($date, $id){
+        $query = "select user_id, hashpassword from users where '".$date."' < hashexpirationtime and user_id = '".$id."' and hashpassword <> ''";
+        $result=$this->db->query($query);
+
+        return $result->row(); 
+    }
+
+    public function addFooterBanner($data){
+        return $this->db->insert('footerbanner',$data) ? true : false ;
+    }
+
     public function addEvent($data){
         return $this->db->insert('event',$data) ? true : false ;
+    }
+
+    public function makehashblank($userId){
+        $data = array(
+           'hashpassword' => ""
+        );
+        $this->db->where('user_id', $userId);
+        $this->db->update('users', $data); 
+        return true;
     }
 
     public function getAdminByEmail($email){
@@ -33,6 +59,12 @@ class Admin extends CI_Model{
 
     public function getAllBanners(){
         $query = $this->db->get('banner');
+        $data['result'] = $query->result();
+        return $data; 
+    }
+
+    public function getAllFooterBanners(){
+        $query = $this->db->get('footerbanner');
         $data['result'] = $query->result();
         return $data; 
     }
@@ -89,6 +121,15 @@ class Admin extends CI_Model{
         return true;
     }
 
+    public function changeFooterBannerStatus($status, $id){
+        $data = array(
+           'status' => $status
+        );
+        $this->db->where('id', $id);
+        $this->db->update('footerbanner', $data); 
+        return true;
+    }
+
     public function changeEventStatus($status, $id){
         $data = array(
            'status' => $status
@@ -112,6 +153,11 @@ class Admin extends CI_Model{
 
     public function deleteBanner($id){
            $res = $this->db->delete('banner', array('id' => $id)); 
+           return $res;
+    }
+
+    public function deleteFooterBanner($id){
+           $res = $this->db->delete('footerbanner', array('id' => $id)); 
            return $res;
     }
 

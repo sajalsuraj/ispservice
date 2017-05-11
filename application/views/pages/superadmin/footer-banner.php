@@ -26,8 +26,8 @@
 			    <li><a href="invoiceorderlist">Customer Invoice List</a></li>
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li> 
-			    <li><a href="banner">HomePage Banner</a></li>
-			    <li><a href="footer-banner">HomePage Footer Banner</a></li>  
+			    <li><a href="banner">HomePage Banner</a></li> 
+			    <li><a href="footer-banner">HomePage Footer Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li>
 			</ul>
 		</div>
@@ -61,7 +61,7 @@
 				</div>
 			</form>
 		</div>
-		<?php $getAllBanners = $this->admin->getAllBanners(); ?>
+		<?php $getAllBanners = $this->admin->getAllFooterBanners(); ?>
 		<div class="col-md-12">
 			<table class="table table-bordered">
 				<thead>
@@ -76,7 +76,7 @@
 				<?php foreach ($getAllBanners['result'] as $banner) { ?>
 					<tr>
 						<td><?php echo $banner->id; ?></td>
-						<td><a href="<?php echo base_url().'assets/resources/images/slider/'. $banner->banner_img; ?>" target="_blank"><?php echo $banner->banner_img; ?></a></td>
+						<td><a href="<?php echo base_url().'assets/resources/images/footerslider/'. $banner->banner_img; ?>" target="_blank"><?php echo $banner->banner_img; ?></a></td>
 						<td><?php if($banner->status == "true"){ echo "Enabled";}else{ echo "Disabled"; } ?></td>
 						<td><?php if($banner->status == "true"){ echo "<button id='disable_".$banner->id."' class='btn btn-danger status'>Disable</button>";}else{ echo "<button id='enable_".$banner->id."' class='btn btn-success status'>Enable</button>"; } ?>&nbsp;&nbsp;<button id="banner_<?php echo $banner->id; ?>" class="btn delBanner">Delete</button></td>
 					</tr>
@@ -96,7 +96,7 @@
 	    submitHandler: function(form) { 
 	    	
 	        $.ajax({
-	        	url:'<?php echo base_url(); ?>add/addBanner',
+	        	url:'<?php echo base_url(); ?>add/addFooterBanner',
 	        	type: 'POST',
                 data: new FormData( form ),
                 processData: false,
@@ -127,7 +127,7 @@
 
 		var obj = {id:detail.split('_')[1], status:status};
 		$.ajax({
-	        	url:'<?php echo base_url(); ?>update/changebannerstatus',
+	        	url:'<?php echo base_url(); ?>update/changefooterbannerstatus',
 	        	type: 'POST',
                 data: obj,
 		        dataType:'json',
@@ -150,7 +150,7 @@
 
 			var obj = {id:id.split("_")[1]};
 	        $.ajax({
-	        	url:'<?php echo base_url(); ?>delete/deleteBanner',
+	        	url:'<?php echo base_url(); ?>delete/deleteFooterBanner',
 	        	type: 'POST',
                 data: obj,
                 dataType:'json',

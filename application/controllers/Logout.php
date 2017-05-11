@@ -9,7 +9,7 @@ class Logout extends CI_Controller{
 
     public function logout(){
     	
-    	if($this->session->userdata('type') == "superadmin" || $this->session->admin_userdata('type') == "subadmin"){
+    	if($this->session->userdata('type') == "superadmin" || $this->session->userdata('type') == "subadmin"){
     		$this->session->unset_userdata('type');
             $this->session->unset_userdata('name');
             $this->session->unset_userdata('user_id');

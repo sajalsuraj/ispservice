@@ -107,21 +107,27 @@ class Update extends CI_Controller{
 
     }
 
-    public function dataplan(){
+    public function dataplan(){ 
 
 
     	if(empty($_POST['plan_name'])){
-	        echo json_encode(['status' => false, 'message' => 'Plan name is empty']);
-	    }
-	    else if(empty($_POST['price'])){
-	        echo json_encode(['status' => false, 'message' => 'Price is empty']);
-	    }
-	    else if(empty($_POST['validity'])){
-	        echo json_encode(['status' => false, 'message' => 'validity is empty']);
-	    }
-	    else if(empty($_POST['speed'])){
-	        echo json_encode(['status' => false, 'message' => 'Speed is empty']);
-	    }
+            echo json_encode(['status' => false, 'message' => 'Plan name is empty']);
+          }
+          else if(empty($_POST['price'])){
+            echo json_encode(['status' => false, 'message' => 'Price is empty']);
+          }
+          else if(empty($_POST['validity'])){
+            echo json_encode(['status' => false, 'message' => 'validity is empty']);
+          }
+          else if(empty($_POST['data'])){
+            echo json_encode(['status' => false, 'message' => 'Data is empty']);
+          }
+          else if(empty($_POST['download_speed'])){
+            echo json_encode(['status' => false, 'message' => 'Download Speed is empty']);
+          }
+          else if(empty($_POST['upload_speed'])){
+            echo json_encode(['status' => false, 'message' => 'Upload Speed is empty']);
+          }
 	    else{
 	    	if($this->dataplan->updateDataPlan($_POST, $_GET['id'])){  
 				echo json_encode(['status' => true, 'message' => "Data plan updated successfully"]);
@@ -142,6 +148,15 @@ class Update extends CI_Controller{
 		}
     }
 
+    public function updateAdminHash(){  
+    	if($this->admin->makehashblank($_POST['id'])){  
+			echo json_encode(['status' => true]);
+		}
+		else{
+			echo json_encode(['status' => false]);
+		}
+    }
+
     public function changepasswordCustomer(){
     	if($this->customer->changepassword(md5($_POST['pass']), $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Password updated successfully"]);
@@ -153,6 +168,15 @@ class Update extends CI_Controller{
 
     public function changebannerstatus(){
     	if($this->admin->changeBannerStatus($_POST['status'], $_POST['id'])){  
+			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
+
+    public function changefooterbannerstatus(){
+    	if($this->admin->changeFooterBannerStatus($_POST['status'], $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
 		}
 		else{

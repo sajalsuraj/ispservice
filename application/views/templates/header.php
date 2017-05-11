@@ -9,10 +9,10 @@
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-ui.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/additional-methods.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/additional-methods.js"></script> 
 	</head>
 	<body>
 		<div class="col-md-12 header">
-			<div class="fleft"><h3><a style="text-decoration:none;" href="<?php echo base_url(); ?>admin/login">ABC iService</a></h3></div>
+			<div class="fleft"><h3><a style="text-decoration:none;" href="<?php echo base_url(); ?>admin/login"><img src="<?php echo base_url(); ?>assets/resources/images/logo.png" alt="logo" class="logo1" /></a></h3></div>
 			<div class="fright user"><h4>Welcome <span>Sajal</span></h4></div>
 		</div>

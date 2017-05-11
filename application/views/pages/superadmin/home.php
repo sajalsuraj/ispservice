@@ -26,6 +26,7 @@
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li> 
 			    <li><a href="banner">HomePage Banner</a></li> 
+			    <li><a href="footer-banner">HomePage Footer Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li> 
 			</ul>
 		</div>
@@ -44,7 +45,7 @@
 	</div>
 
 	<div class="col-md-12 heading">
-		<h3>ABC iService Customer CRM</h3>
+		<h3>AuthorStream Customer CRM</h3>
 	</div>
 
 	<div class="col-md-12">

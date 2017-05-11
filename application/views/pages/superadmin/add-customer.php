@@ -26,6 +26,7 @@
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li>
 			    <li><a href="banner">HomePage Banner</a></li> 
+			    <li><a href="footer-banner">HomePage Footer Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li>  
 			</ul>
 		</div>

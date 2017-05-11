@@ -21,7 +21,7 @@
 								</li>
 								
 								<li>
-									<input type="submit" name="pwd" value="Continue" class="sign_in_btn"/>
+									<input type="submit" value="Continue" class="sign_in_btn"/>
 								</li>			
 							</ul>
 						</form>

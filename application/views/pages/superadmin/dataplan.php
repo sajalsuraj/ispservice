@@ -9,7 +9,7 @@
 		else{
 			redirect('admin/login'); 
 		}
-	}
+	} 
 	else{
 		redirect('admin/login');  
 	}
@@ -25,6 +25,7 @@
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li>
 			    <li><a href="banner">HomePage Banner</a></li> 
+			    <li><a href="footer-banner">HomePage Footer Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li> 
 			</ul>
 		</div>
@@ -40,7 +41,7 @@
 	</div>
 
 	<div class="col-md-12 heading">
-		<h3>ABC iService Data Plans</h3>
+		<h3>AuthorStream Data Plans</h3>
 	</div>
 
 	<div class="col-md-12">
@@ -54,7 +55,9 @@
 						<th>Plan Name</th> 
 						<th>Price</th>
 						<th>Validity</th> 
-						<th>Speed(In MBPS)</th>
+						<th>Download Speed(In MBPS)</th>
+						<th>Upload Speed(In MBPS)</th>
+						<th>Data (in GB)</th>
 						<th>Actions</th>
 					</tr> 
 				</thead> 
@@ -67,7 +70,9 @@
 									<td><?php echo $plan->plan_name; ?></td> 
 									<td><?php echo $plan->price; ?></td>
 									<td><?php echo $plan->validity; ?></td> 
-									<td><?php echo $plan->speed; ?></td>  
+									<td><?php echo $plan->download_speed; ?></td>
+									<td><?php echo $plan->upload_speed; ?></td> 
+									<td><?php echo $plan->data; ?></td>  
 									<td><button id="plan_<?php echo $plan->id; ?>" class="btn planEdit">Edit</button> <button id="delplan_<?php echo $plan->id; ?>" class="btn delPlan">Delete</button></td>
 								</tr> 
 						<?php }?>
@@ -98,15 +103,28 @@
 	        				</tr>
 	        				<tr>
 	        					<td>Price</td>
-	        					<td><input type="number" name="price" class="form-control"></td>
+	        					<td><input type="text" name="price" class="form-control"></td>
+	        				</tr>
+	        				<tr>
+	        					<td>Data (in GB)</td>
+	        					<td><input type="text" name="data" class="form-control"></td>
 	        				</tr>
 	        				<tr>
 	        					<td>Validity</td>
-	        					<td><input type="text" name="validity" class="form-control"></td>
+	        					<td>
+	        						<select name="validity" class="form-control">
+	        							<option value="15 Days">15 Days</option>
+	        							<option value="30 Days">30 Days</option>
+	        						</select>
+	        					</td>
 	        				</tr>
 	        				<tr>
-	        					<td>Speed (In MBPS)</td>
-	        					<td><input type="number" name="speed" class="form-control"></td>
+	        					<td>Download Speed (In MBPS)</td>
+	        					<td><input type="text" name="download_speed" class="form-control"></td>
+	        				</tr>
+	        				<tr>
+	        					<td>Upload Speed (In MBPS)</td>
+	        					<td><input type="text" name="upload_speed" class="form-control"></td>
 	        				</tr>
 	        			</tbody>
 	        		</table>
@@ -144,8 +162,10 @@
 					
 					$('input[name=plan_name]').val(as.data.plan_name);
 					$('input[name=price]').val(as.data.price);
-					$('input[name=validity]').val(as.data.validity);
-					$('input[name=speed]').val(as.data.speed);
+					$('select[name=validity]').val(as.data.validity);
+					$('input[name=download_speed]').val(as.data.download_speed);
+					$('input[name=upload_speed]').val(as.data.upload_speed);
+					$('input[name=data]').val(as.data.data);
 					$('#planEditBox').modal('show');
 				}
 			});

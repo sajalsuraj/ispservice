@@ -5,7 +5,7 @@
 				<div class="foot_left">
 				<ul>
 					<li><a href="<?php echo base_url(); ?>">Home</a></li>
-					<li><a href="#">About Us</a></li>
+					<li><a href="<?php echo base_url(); ?>about-us">About Us</a></li>
 					<li><a href="our-plans">Our Plans</a></li>
 					<li><a href="contact-us">Contact Us</a></li>
 					<li><a href="login">Login</a></li>

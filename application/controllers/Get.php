@@ -1,14 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+define('ENCRYPTION_KEY', 'd0a7e7997b6d5fcd55f4b5c32611b87cd923e88837b63bf2941ef819dc8ca282');
 class Get extends CI_Controller{
 
     public function __construct(){
       parent::__construct();
     } 
 
+    public function encrypt($ENTEXT, $key) 
+    { 
+        return trim(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, substr(bin2hex($key), -32),
+            $ENTEXT, MCRYPT_MODE_ECB, mcrypt_create_iv(
+            mcrypt_get_iv_size( MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB),
+                              MCRYPT_DEV_URANDOM)))); 
+    } 
+
+    public function decrypt($DETEXT, $key) 
+    {
+        return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, substr(bin2hex($key), -32),
+           base64_decode($DETEXT), MCRYPT_MODE_ECB, 
+           mcrypt_create_iv(mcrypt_get_iv_size( 
+                           MCRYPT_RIJNDAEL_256,
+                          MCRYPT_MODE_ECB), MCRYPT_DEV_URANDOM))); 
+    } 
+
+
     
-    public function adminLogin(){  
+    public function adminLogin(){   
 
          $_POST['password'] = md5($_POST['password']);
     	
@@ -96,6 +114,7 @@ class Get extends CI_Controller{
     	echo json_encode(['status'=> true, 'data' => $data]);
     }
 
+
     public function getIndividualOrder(){
         $data = $this->customer->getOrderByCustomer($_POST['id']);
         echo json_encode(['status'=> true, 'data' => $data]);
@@ -131,6 +150,23 @@ class Get extends CI_Controller{
         }
     }
 
+    public function checkExpirationTime(){
+
+        
+        $user_id = $this->decrypt($_POST['user'], ENCRYPTION_KEY);
+        
+       
+        $user = $this->admin->checkExpirationTime(date("Y-m-d G:i:s"), $user_id);
+
+        if($user == NULL){
+            echo json_encode(['status'=> false, 'data' => "Data doesn't exist"]); 
+        }
+        else{
+            echo json_encode(['status'=> true, 'data' => $user]); 
+        }
+
+    }
+
     public function recoveradminpassword(){
 
         $data = $this->admin->getAdminByEmail($_POST['email_id']);
@@ -139,7 +175,35 @@ class Get extends CI_Controller{
             echo json_encode(['status'=> false, 'data' => "Email ID doesn't exist!"]); 
         } 
         else{
-            $msg = "Greetings from ISP Service. Your password is ".$data->password;
+
+            $updArr = array();
+            $encrypted = $this->encrypt($data->user_id, ENCRYPTION_KEY);
+            $updArr['hashpassword'] = hash('ripemd160', rand(00000000,99999999));
+            $updArr['hashexpirationtime'] = date("Y-m-d G:i:s", strtotime('+3 hours'));
+
+
+            if($this->admin->updateHash($updArr, $data->user_id)){ 
+                $msg = "Greetings from ISP Service. To change your password, please click on this link ".base_url()."admin/changeadminpass?p=".$updArr['hashpassword']."&user=".$encrypted."";
+
+                // use wordwrap() if lines are longer than 70 characters
+                $msg = wordwrap($msg,70);
+
+                $headers = "From: sajal.suraj@suved.co". "\r\n" .
+                            'X-Mailer: PHP/' . phpversion();
+                // send email
+                
+                $mail = mail($_POST['email_id'],"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+                
+                if(!$mail) {   
+                     echo "Error";   
+                } else {
+                    
+                    echo json_encode(['status'=> true, 'data' => "A link for password recovery has been sent to this email ID. Please check your email. Thank you"]);
+                }
+            }
+
+            //$decrypted = $this->mc_decrypt($encrypted, ENCRYPTION_KEY);
+            /*$msg = "Greetings from ISP Service. Your password is ".$data->password;
 
             // use wordwrap() if lines are longer than 70 characters
             $msg = wordwrap($msg,70);
@@ -147,7 +211,7 @@ class Get extends CI_Controller{
             $headers = "From: sajal.suraj@suved.co". "\r\n" .
                         'X-Mailer: PHP/' . phpversion();
             // send email
-            mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+            mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);*/
         }
     }
 

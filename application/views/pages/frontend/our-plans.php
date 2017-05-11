@@ -10,7 +10,7 @@
 			
 			
 		</div>
-	</div>
+	</div> 
 	
 	<div class="row">
 		
@@ -26,53 +26,18 @@
 				
 				<div class="int_plans_list">
 					<div class="row">
-						<div class="col-md-4">
-							<div class="combo_block">
-								<div class="combo_heading">Golden Plan</div>
-								<div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-								<div class="combo_more"><a href="">Enquire Now</a></div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="combo_block">
-								<div class="combo_heading">Silver Plan</div>
-								<div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-								<div class="combo_more"><a href="">Enquire Now</a></div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="combo_block">
-								<div class="combo_heading">Bonanza Plan</div>
-								<div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-								<div class="combo_more"><a href="">Enquire Now</a></div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="combo_block">
-								<div class="combo_heading">Student Plan</div>
-								<div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-								<div class="combo_more"><a href="">Enquire Now</a></div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="combo_block">
-								<div class="combo_heading">Corporate Plan</div>
-								<div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-								<div class="combo_more"><a href="">Enquire Now</a></div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="combo_block">
-								<div class="combo_heading">Basic Plan</div>
-								<div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-								<div class="combo_more"><a href="">Enquire Now</a></div>
-							</div>
-						</div>
+						<?php 
+                        $allPlans = $this->dataplan->getAll();
+                        
+                        foreach ($allPlans['result'] as $plan) { ?>
+	                        <div class="col-md-4">
+	                            <div class="combo_block">
+	                                <div class="combo_heading"><?php echo $plan->plan_name; ?></div>
+	                                <div class="combo_des"><p><?php echo $plan->data; ?> GB, <?php echo $plan->download_speed; ?>MBPS, <?php echo $plan->validity; ?></p></div>
+	                                <div class="combo_more"><a href="">Enquire Now</a></div>
+	                            </div>
+	                        </div>
+	                    <?php } ?>
 					</div>
 				</div>
 			

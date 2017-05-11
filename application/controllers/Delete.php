@@ -40,6 +40,17 @@ class Delete extends CI_Controller{
 
     } 
 
+    public function deleteFooterBanner(){
+
+        if($this->admin->deleteFooterBanner($_POST['id'])){ 
+            echo json_encode(['status' => true, 'message' => 'Banner deleted successfully']);
+        }
+        else{
+            echo json_encode(['status' => false, 'message' => 'Unable to delete']);
+        }
+
+    } 
+
     public function deleteEvent(){
 
         if($this->admin->deleteEvent($_POST['id'])){

@@ -98,7 +98,7 @@ marqueeInit({
 				
 				
 				<a href="<?php echo base_url(); ?>">Home</a>
-				<a href="#">About Us</a>
+				<a href="<?php echo base_url(); ?>about-us">About Us</a>
 				<a href="our-plans">Our Plans</a>
 				<a href="#">News & Events</a>
 				

@@ -12,7 +12,7 @@
                             <div class="ban_rota_img">
                                 <a href="#">
                                     <img src="<?php echo base_url(); ?>assets/resources/images/slider/<?php echo $banner->banner_img; ?>" alt="" />
-                                </a>
+                                </a> 
                             </div>
                         </div>  
                         <?php }} ?>
@@ -52,53 +52,18 @@
                 
                 <div class="int_plans_list">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="combo_block">
-                                <div class="combo_heading">Golden Plan</div>
-                                <div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-                                <div class="combo_more"><a href="">Enquire Now</a></div>
-                            </div>
-                        </div>
+                    <?php 
+                        $allPlans = $this->dataplan->getAll();
                         
+                        foreach ($allPlans['result'] as $plan) { ?>
                         <div class="col-md-4">
                             <div class="combo_block">
-                                <div class="combo_heading">Silver Plan</div>
-                                <div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
+                                <div class="combo_heading"><?php echo $plan->plan_name; ?></div>
+                                <div class="combo_des"><p><?php echo $plan->data; ?> GB, <?php echo $plan->download_speed; ?>MBPS, <?php echo $plan->validity; ?></p></div>
                                 <div class="combo_more"><a href="">Enquire Now</a></div>
                             </div>
                         </div>
-                        
-                        <div class="col-md-4">
-                            <div class="combo_block">
-                                <div class="combo_heading">Bonanza Plan</div>
-                                <div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-                                <div class="combo_more"><a href="">Enquire Now</a></div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="combo_block">
-                                <div class="combo_heading">Student Plan</div>
-                                <div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-                                <div class="combo_more"><a href="">Enquire Now</a></div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="combo_block">
-                                <div class="combo_heading">Corporate Plan</div>
-                                <div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-                                <div class="combo_more"><a href="">Enquire Now</a></div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="combo_block">
-                                <div class="combo_heading">Basic Plan</div>
-                                <div class="combo_des"><p>80 GB, 3MBPS, 30 Days</p></div>
-                                <div class="combo_more"><a href="">Enquire Now</a></div>
-                            </div>
-                        </div>
+                    <?php } ?>
                     </div>
                 </div>
             
@@ -126,49 +91,22 @@
                         <div class="btm_five_add">
                                             <!--own repeat-->
                                             <!--single product in loop-->
+                                    <?php $getAllBanners = $this->admin->getAllFooterBanners(); ?>
+                                    <?php foreach ($getAllBanners['result'] as $banner) {  ?>
+                                        <?php if($banner->status=="true"){ ?>
                                             <div>
                                                 <div class="ban_rota_img">
                                                     <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
+                                                        <img src="<?php echo base_url(); ?>assets/resources/images/footerslider/<?php echo $banner->banner_img; ?>" alt="" />
                                                     </a>
                                                 </div>
                                             </div>  
                                             <!--ends here-->
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div><div>
-                                                <div class="ban_rota_img">
-                                                    <a href="#">
-                                                        <img src="<?php echo base_url(); ?>assets/resources/images/slider/slider-1.jpg" alt="" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            
+                                    <?php }
+                                        } 
+
+                                    ?>
+                                           
                         
                                     </div>
                 </div>

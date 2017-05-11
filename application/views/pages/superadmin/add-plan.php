@@ -25,6 +25,7 @@
 			    <li><a href="customerlist">Customer List</a></li>
 			    <li><a href="dataplan">Data Plan</a></li>
 			    <li><a href="banner">HomePage Banner</a></li> 
+			    <li><a href="footer-banner">HomePage Footer Banner</a></li> 
 			    <li><a href="add-event">Manage Events</a></li> 
 			</ul>
 		</div>
@@ -52,15 +53,26 @@
 				</div>
 				<div class="form-group">
 					<label>Price</label>
-					<input type="number" name="price" class="form-control">
+					<input type="text" name="price" class="form-control">
 				</div>
 				<div class="form-group">
 					<label>Validity</label>
-					<input id="validity" type="text" name="validity" class="form-control">
+					<select name="validity" class="form-control">
+						<option value="15 Days">15 Days</option>
+						<option value="30 Days">30 Days</option>
+					</select>
 				</div>
 				<div class="form-group">
-					<label>Speed (in MBPS)</label>
-					<input type="text" name="speed" class="form-control">
+					<label>Data (in GB)</label>
+					<input type="text" name="data" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Download Speed (in MBPS)</label>
+					<input type="text" name="download_speed" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Upload Speed (in MBPS)</label>
+					<input type="text" name="upload_speed" class="form-control">
 				</div>
 				<div class="form-group">
 					<center><button type="submit" class="btn btn-plan">Add Plan</button></center>

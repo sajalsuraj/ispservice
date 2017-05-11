@@ -122,7 +122,7 @@ class Add extends CI_Controller{
 
     }
 
-    public function addDataPlan(){
+    public function addDataPlan(){ 
 
           if(empty($_POST['plan_name'])){
             echo json_encode(['status' => false, 'message' => 'Plan name is empty']);
@@ -133,8 +133,14 @@ class Add extends CI_Controller{
           else if(empty($_POST['validity'])){
             echo json_encode(['status' => false, 'message' => 'validity is empty']);
           }
-          else if(empty($_POST['speed'])){
-            echo json_encode(['status' => false, 'message' => 'Speed is empty']);
+          else if(empty($_POST['data'])){
+            echo json_encode(['status' => false, 'message' => 'Data is empty']);
+          }
+          else if(empty($_POST['download_speed'])){
+            echo json_encode(['status' => false, 'message' => 'Download Speed is empty']);
+          }
+          else if(empty($_POST['upload_speed'])){
+            echo json_encode(['status' => false, 'message' => 'Upload Speed is empty']);
           }
           else{
             $data = $this->dataplan->createDataPlan($_POST);
@@ -236,6 +242,24 @@ class Add extends CI_Controller{
          move_uploaded_file($_FILES["banner_img"]["tmp_name"], $target_file_img);
 
         $data = $this->admin->addBanner($_POST);
+      
+         if($data){
+            echo json_encode(['status' => true, 'message' => 'Banner Uploaded']);
+         }
+         else{
+            echo json_encode(['status' => false, 'message' => 'Error while uploading']);
+         }
+    }
+
+    public function addFooterBanner(){
+
+        $_POST['status'] = "true";
+        $_POST['banner_img'] = $_FILES["banner_img"][ "name" ];
+         $folder= './assets/resources/images/footerslider/';
+         $target_file_img = $folder. basename($_FILES["banner_img"]["name"]);
+         move_uploaded_file($_FILES["banner_img"]["tmp_name"], $target_file_img);
+
+        $data = $this->admin->addFooterBanner($_POST);
       
          if($data){
             echo json_encode(['status' => true, 'message' => 'Banner Uploaded']);

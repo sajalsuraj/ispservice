@@ -33,6 +33,7 @@
 			    <li><a href="<?php echo base_url(); ?>admin/customerlist">Customer List</a></li>
 			    <li><a href="<?php echo base_url(); ?>admin/dataplan">Data Plan</a></li>
 			    <li><a href="<?php echo base_url(); ?>admin/banner">HomePage Banner</a></li> 
+			    <li><a href="<?php echo base_url(); ?>footer-banner">HomePage Footer Banner</a></li> 
 			    <li><a href="<?php echo base_url(); ?>admin/add-event">Manage Events</a></li>  
 			</ul>
 		</div>
