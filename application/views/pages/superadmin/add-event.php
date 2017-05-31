@@ -159,7 +159,9 @@
 <script type="text/javascript">
 
 	$('input[name=startDate], input[name=endDate]').datepicker({
-		dateFormat: 'dd-mm-yy'
+		dateFormat: 'dd-mm-yy',
+		changeMonth: true,
+		changeYear: true
 	});
 
 	$("#addEvent").submit(function(event) {

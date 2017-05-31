@@ -147,7 +147,9 @@
 	<script type="text/javascript">
 
 		$('input[name=validity]').datepicker({
-			dateFormat: 'dd-mm-yy'
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			changeYear: true
 		});
 		var id = "";
 		$('.planEdit').click(function(){

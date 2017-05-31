@@ -7,7 +7,6 @@ class Admin extends CI_Model{
 	    parent::__construct();
 	}
 
-
 	public function login($data){
 		$this->db->select('first_name, last_name, user_id, type, status');
         $query = $this->db->get_where('users', array('email_id' => $data['email_id'], 'password' => $data['password']))->row();

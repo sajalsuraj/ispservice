@@ -13,6 +13,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         return $data; 
 
       }
+  
+      public function updateHash($data, $id){
+          $this->db->where('customer_id', $id);
+          return $this->db->update('customer', $data) ? true : false;
+      }
+
+      public function checkExpirationTime($date, $id){
+          $query = "select customer_id, hashpassword from customer where '".$date."' < hashexpirationtime and customer_id = '".$id."' and hashpassword <> ''";
+          $result=$this->db->query($query);
+          return $result->row(); 
+      }
+
+      public function makehashblank($userId){
+          $data = array(
+             'hashpassword' => ""
+          );
+          $this->db->where('customer_id', $userId);
+          $this->db->update('customer', $data); 
+          return true;
+      }
 
       public function getListforExcel(){
         $query = $this->db->get('customer');

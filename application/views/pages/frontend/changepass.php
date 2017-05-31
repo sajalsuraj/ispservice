@@ -9,43 +9,58 @@
 <script type="text/javascript">
 	var user_id = "";
 	$.ajax({
-		url:'<?php echo base_url();?>get/checkExpirationTime',
+		url:'<?php echo base_url();?>get/checkCustomerExpirationTime',
 		data:{user:'<?php echo $user; ?>'},
 		type:'POST',
 		dataType:'json',
 		success:function(as){
+			console.log(as);
 			if(as.status == false){
-				location.href = "<?php echo base_url();?>admin/error";
+				location.href = "<?php echo base_url();?>error";
 			}
 			else if(as.status == true){
-				user_id = as.data.user_id;
+				user_id = as.data.customer_id;
 			}
 		}
 	});
 </script>
-<div class="container-fluid">
-	<div class="col-md-12 heading">
-		<h3>AuthorStream Change Password</h3>
+<section id="main_mid_sec">
+	<div class="mig_logsec">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="sign_top">
+						<h1>Change your Password</h1>
+						<p>You can change your password by entering the fields given below:</p>
+					</div>	
+				</div>
+			</div>
+		
+			<div class="row">
+				
+				<div class="col-xs-24">
+					
+					<div class="cus_log">
+						<form id="changePass">
+							<ul>
+								<li>
+									<input type="password" id="newpass" name="new_pass" placeholder="New Password" class="ipfield" />
+								</li>
+								<li>
+									<input type="password" name="re_pass" placeholder="Re-Type Password" class="ipfield" />
+								</li>
+								
+								<li>
+									<input type="submit" value="Submit" class="sign_in_btn"/>
+								</li>
+							</ul>
+						</form>
+					</div>			
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-4 form-style">
-			<form id="changePass">
-				<div class="form-group">
-					<label>New Password:</label> 
-					<input id="newpass" type="password" name="new_pass" class="form-control">
-				</div>
-				<div class="form-group">
-					<label>Confirm Password:</label>
-					<input type="password" name="re_pass" class="form-control">
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-login">Submit</button>
-				</div>
-			</form>
-		</div>	
-	</div>
-</div>
+</section>
 <script>
 $("#changePass").submit(function(event) {
     event.preventDefault();
@@ -57,28 +72,28 @@ $("#changePass").submit(function(event) {
         },
         re_pass : {
             minlength : 5,
-            required:true,
+            required:true, 
             equalTo : "#newpass" 
         }
     },
     submitHandler: function(form) {   
     	
   		$.ajax({
-        	url:'<?php echo base_url(); ?>update/changepasswordSuperadmin',
+        	url:'<?php echo base_url(); ?>update/changepasswordCustomer',
         	type: 'POST',
             data: {pass:$('input[name=new_pass]').val(), id:user_id},
             dataType:'json',
             success:function(as){
             	if(as.status == true){
             		$.ajax({
-			        	url:'<?php echo base_url(); ?>update/updateAdminHash',
+			        	url:'<?php echo base_url(); ?>update/updateCustomerHash',
 			        	type: 'POST',
 			            data: {id:user_id},
 			            dataType:'json',
 			            success:function(as){
 			            	if(as.status == true){
 			            		alert("Your password has been changed successfully");
-			            		location.href="<?php echo base_url(); ?>admin/login";
+			            		location.href="<?php echo base_url(); ?>login";
 			            	}
 			            }
 			        });

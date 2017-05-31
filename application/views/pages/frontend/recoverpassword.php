@@ -33,7 +33,7 @@
 	</div>
 </section>
 <script type="text/javascript">
-	$("#recoverPassForm").submit(function(event) {
+	$("#recoverPassForm").submit(function(event) { 
 	    event.preventDefault();
 	}).validate({
 	    rules: {
@@ -48,6 +48,9 @@
                 dataType:'json',
                 success:function(as){
                 	if(as.status == false){
+                		alert(as.data);
+                	}
+                	else if(as.status == true){
                 		alert(as.data);
                 	}
                 }

@@ -4,7 +4,7 @@
 		if($this->session->userdata('customer_type') == "customer"){
 			
 		}
-		else{
+		else{ 
 			redirect('login');
 		}
 	}

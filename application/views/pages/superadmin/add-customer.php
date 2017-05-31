@@ -244,7 +244,9 @@
 
 <script type="text/javascript">
 	$('#billingdate, input[name=dob]').datepicker({
-		dateFormat: 'dd-mm-yy'
+		dateFormat: 'dd-mm-yy',
+		changeMonth: true,
+		changeYear: true
 	});
 
 	$("#addCustomerForm").submit(function(event) {

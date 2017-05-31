@@ -166,6 +166,15 @@ class Update extends CI_Controller{
 		}
     }
 
+    public function updateCustomerHash(){  
+    	if($this->customer->makehashblank($_POST['id'])){  
+			echo json_encode(['status' => true]);
+		}
+		else{
+			echo json_encode(['status' => false]);
+		}
+    }
+
     public function changebannerstatus(){
     	if($this->admin->changeBannerStatus($_POST['status'], $_POST['id'])){  
 			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);

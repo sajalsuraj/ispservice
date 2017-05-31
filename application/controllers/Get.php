@@ -24,8 +24,6 @@ class Get extends CI_Controller{
                           MCRYPT_MODE_ECB), MCRYPT_DEV_URANDOM))); 
     } 
 
-
-    
     public function adminLogin(){   
 
          $_POST['password'] = md5($_POST['password']);
@@ -133,26 +131,41 @@ class Get extends CI_Controller{
     public function recoverpassword(){
 
         $data = $this->customer->getCustomerByEmail($_POST['email']);
-
         if($data == NULL){
             echo json_encode(['status'=> false, 'data' => "Email ID doesn't exist!"]); 
         } 
         else{
-            $msg = "Greetings from ISP Service. Your password is ".$data->password;
 
-            // use wordwrap() if lines are longer than 70 characters
-            $msg = wordwrap($msg,70);
+            $updArr = array();
+            $encrypted = $this->encrypt($data->customer_id, ENCRYPTION_KEY);
+            $updArr['hashpassword'] = hash('ripemd160', rand(00000000,99999999));
+            $updArr['hashexpirationtime'] = date("Y-m-d G:i:s", strtotime('+3 hours'));
 
-            $headers = "From: sajal.suraj@suved.co". "\r\n" .
-                        'X-Mailer: PHP/' . phpversion();
-            // send email
-            mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+
+            if($this->customer->updateHash($updArr, $data->customer_id)){ 
+                $msg = "Greetings from ISP Service. To change your password, please click on this link ".base_url()."changepass?p=".$updArr['hashpassword']."&user=".$encrypted."";
+
+                // use wordwrap() if lines are longer than 70 characters
+                $msg = wordwrap($msg,70);
+
+                $headers = "From: noreply@ackanina.com". "\r\n" .
+                            'X-Mailer: PHP/' . phpversion();
+                // send email
+                
+                $mail = mail($_POST['email'],"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);
+                
+                if(!$mail) {   
+                     echo "Error";   
+                } else {
+                    
+                    echo json_encode(['status'=> true, 'data' => "A link for password recovery has been sent to this email ID. Please check your email. Thank you"]);
+                }
+            }
         }
     }
 
     public function checkExpirationTime(){
-
-        
+  
         $user_id = $this->decrypt($_POST['user'], ENCRYPTION_KEY);
         
        
@@ -164,7 +177,20 @@ class Get extends CI_Controller{
         else{
             echo json_encode(['status'=> true, 'data' => $user]); 
         }
+    }
 
+    public function checkCustomerExpirationTime(){
+  
+        $user_id = $this->decrypt($_POST['user'], ENCRYPTION_KEY);
+
+       
+        $user = $this->customer->checkExpirationTime(date("Y-m-d G:i:s"), $user_id);
+        if($user == NULL){
+            echo json_encode(['status'=> false, 'data' => "Data doesn't exist"]); 
+        }
+        else{
+            echo json_encode(['status'=> true, 'data' => $user]); 
+        }
     }
 
     public function recoveradminpassword(){
@@ -188,7 +214,7 @@ class Get extends CI_Controller{
                 // use wordwrap() if lines are longer than 70 characters
                 $msg = wordwrap($msg,70);
 
-                $headers = "From: sajal.suraj@suved.co". "\r\n" .
+                $headers = "From: noreply@ackanina.com". "\r\n" .
                             'X-Mailer: PHP/' . phpversion();
                 // send email
                 
@@ -201,17 +227,6 @@ class Get extends CI_Controller{
                     echo json_encode(['status'=> true, 'data' => "A link for password recovery has been sent to this email ID. Please check your email. Thank you"]);
                 }
             }
-
-            //$decrypted = $this->mc_decrypt($encrypted, ENCRYPTION_KEY);
-            /*$msg = "Greetings from ISP Service. Your password is ".$data->password;
-
-            // use wordwrap() if lines are longer than 70 characters
-            $msg = wordwrap($msg,70);
-
-            $headers = "From: sajal.suraj@suved.co". "\r\n" .
-                        'X-Mailer: PHP/' . phpversion();
-            // send email
-            mail($data->email,"Password Recovery - ".$data->first_name." ".$data->last_name,$msg, $headers);*/
         }
     }
 

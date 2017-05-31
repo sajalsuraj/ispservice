@@ -83,7 +83,9 @@
 </div>
 <script type="text/javascript">
 	$('#validity').datepicker({
-		dateFormat: 'dd-mm-yy'
+		dateFormat: 'dd-mm-yy',
+		changeMonth: true,
+		changeYear: true
 	});
 
 	$("#addPlanForm").submit(function(event) {
