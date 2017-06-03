@@ -96,10 +96,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
 
 
-      public function getOrderById($id){ 
+      public function getOrderByInvoiceId($id){ 
         $this->db->select('*');
         $this->db->from('invoice as o, customer as c');
-        $this->db->where('o.circuit_id = c.customer_id and o.order_no="'.$id.'"');
+        $this->db->where('o.circuit_id = c.customer_id and o.invoice_no="'.$id.'"');
 
         $query = $this->db->get()->row();
         return $query;

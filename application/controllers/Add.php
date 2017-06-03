@@ -101,7 +101,7 @@ class Add extends CI_Controller{
                      $data['year'] = date('Y');
                      $data['next_payment_date'] = date('Y-m-d', strtotime('+1 month', strtotime($date)));
                      $data['invoice_date'] = date('Y-m-d', strtotime('-5 days', strtotime($data['next_payment_date'])));
-                     $data['order_no'] = "ISP/".$data['invoice_date']."/".$_POST['customer_id']."/".rand(0000,9999);
+                     //$data['order_no'] = "ISP/".$data['invoice_date']."/".$_POST['customer_id']."/".rand(0000,9999);
                      $data['base_amount'] = $plan->price;
                      $data['service_tax'] = 0.14 * intval($data['base_amount']);
                      $data['sbc'] = 0.005 * intval($data['base_amount']);
@@ -280,6 +280,16 @@ class Add extends CI_Controller{
          else{
             echo json_encode(['status' => false, 'message' => 'Error while adding']);
          }
+    }
+
+    public function addOrder(){
+        $data = $this->invoice->addneworder($_POST);
+        if($data){
+          echo json_encode(['status' => true, 'message' => 'Order Created']);
+        }
+        else{
+          echo json_encode(['status' => false, 'message' => 'Error while Creating error']);
+        }
     }
 }
 

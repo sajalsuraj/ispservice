@@ -114,12 +114,12 @@
 				type:'POST',
 				dataType:'json',
 				success:function(as){
-					
+					console.log(as);
 					var option = "";
 					if(as.status == true){
 						option = "";
 						for(var i = 0; i < as.data.length;i++){
-							option += '<option value="'+as.data[i].order_no+'">'+as.data[i].customer_id+'-'+as.data[i].first_name+'</option>';
+							option += '<option value="'+as.data[i].invoice_no+'">'+as.data[i].customer_id+'-'+as.data[i].first_name+'</option>';
 						}
 						$('select').html(option);
 					}
@@ -158,14 +158,14 @@
 					dataType:'json',
 					success:function(as){
 						
-						console.log(as);
+						
 						var invoiceField = "";
 						invoiceField += '<td>'+as.data.circuit_id+'</td>';
 						invoiceField += '<td>'+as.data.invoice_no+'</td>';
 						invoiceField += '<td>'+as.data.total_amount+'</td>';
 						invoiceField += '<td>'+as.data.service_tax+'</td>';
 						invoiceField += '<td>'+as.data.next_payment_date+'</td>';
-						invoiceField += '<td><a class="btn btn-invoice" href="<?php echo base_url()."invoice/generate?order_no=" ?>'+as.data.order_no+'">Download PDF</a></td>';
+						invoiceField += '<td><a class="btn btn-invoice" href="<?php echo base_url()."invoice/generate?invoice_no=" ?>'+as.data.invoice_no+'">Download PDF</a></td>';
 
 						$('#invoiceField').html(invoiceField);
 					}

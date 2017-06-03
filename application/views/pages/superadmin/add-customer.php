@@ -132,7 +132,7 @@
 					</div>
 					<div class="form-group">
 						<label>Phone Number</label>
-						<input type="number" name="phone" class="form-control">
+						<input type="text" name="phone" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Connectivity Type</label>
@@ -258,7 +258,7 @@
 	     	father_name: "required",
 	     	address: "required",
 	     	city: "required",
-	     	state: "required",
+	     	state: "required", 
 	     	pincode: "required",
 	     	aadhar_no: {
 	     		required: true,

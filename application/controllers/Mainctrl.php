@@ -150,7 +150,7 @@ class Mainctrl extends CI_Controller {
   
     // Set some content to print
 
-    $data = $this->customer->getOrderById($_GET['order_no']); 
+    $data = $this->customer->getOrderByInvoiceId($_GET['invoice_no']); 
 
     if($data->payment_status == "Paid"){
         $details = '

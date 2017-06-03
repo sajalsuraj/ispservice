@@ -104,11 +104,11 @@ class Get extends CI_Controller{
 
     public function getDataplan(){
     	$data = $this->dataplan->getPlanById($_POST['id']);
-    	echo json_encode(['status'=> true, 'data' => $data]);
+    	echo json_encode(['status'=> true, 'data' => $data]); 
     }
 
     public function getorder(){
-    	$data = $this->customer->getOrderById($_POST['id']);
+    	$data = $this->customer->getOrderByInvoiceId($_POST['id']);
     	echo json_encode(['status'=> true, 'data' => $data]);
     }
 

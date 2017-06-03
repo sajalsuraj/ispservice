@@ -21,10 +21,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
 
       public function changeStatus($month, $year){
-      	$query = 'update invoice set invoice_status = "Active" where CURDATE() > invoice_date and month = '.$month.' and year='.$year.' and payment_status="Pending"';
+
+        $query = 'update invoice set service_tax = (service_tax+(0.14*base_amount)), sbc = (sbc + (0.005 * base_amount)), kkc = (kkc + (0.005 * base_amount)), base_amount = (base_amount+base_amount), total_amount = (total_amount + (base_amount + service_tax + sbc + kkc)), invoice_date = DATE_ADD(invoice_date,INTERVAL 30 DAY), next_payment_date = DATE_ADD(next_payment_date,INTERVAL 30 DAY), invoice_status = "Active", month = "'.$month.'", year = "'.$year.'" where payment_status = "Pending" and CURDATE() > invoice_date';
+      	
       	$result = $this->db->query($query);
       	return $result;
       } 
+
+      public function changepaymentstatus($customer_id){
+        $query = 'update invoice set payment_status = "Paid", invoice_status = "Deactive" where circuit_id = "'.$customer_id.'" and payment_status = "Pending"';
+
+        $result = $this->db->query($query);
+        return $result;
+      }
+
+      public function addneworder($data){
+        return $this->db->insert('orders', $data) ? true : false ; 
+      }
 
   }
 ?>

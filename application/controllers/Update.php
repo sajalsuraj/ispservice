@@ -220,6 +220,15 @@ class Update extends CI_Controller{
 		}
     }
 
+    public function paymentstatus(){
+    	if($this->invoice->changepaymentstatus($_POST['customer_id'])){  
+			echo json_encode(['status' => true, 'message' => "Status updated successfully"]);
+		}
+		else{
+			echo json_encode(['status' => false, 'message' => "Not Updated"]);
+		}
+    }
+
     public function event(){
     	if($this->admin->updateEvent($_POST, $_GET['id'])){  
 			echo json_encode(['status' => true, 'message' => "Event updated successfully"]);
